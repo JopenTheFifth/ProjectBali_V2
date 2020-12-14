@@ -15,7 +15,9 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
          $this->call([
-             LodgeType::class
+             LodgeType::class,
+             UserRoleSeeder::class,
+             UserSeeder::class
          ]);
          Lodge::factory(10)->create();
     }

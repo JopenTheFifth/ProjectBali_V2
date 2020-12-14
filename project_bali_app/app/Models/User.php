@@ -58,4 +58,9 @@ class User extends Authenticatable
         return $this->hasMany(LodgeReview::class);
     }
 
+
+    public function roles(){
+        return $this->belongsToMany(UserRole::class);
+    }
+
 }
