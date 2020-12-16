@@ -113,12 +113,17 @@
 
  label{
      font-weight: bold;
-     font-size: 1.1rem;
+     font-size: 0.9rem;
      color:#353337;;
  }
 
     input, label,select{
         display: block;
+    }
+
+    input,select{
+        font-size: 0.7rem;
+
     }
 
     .card{
