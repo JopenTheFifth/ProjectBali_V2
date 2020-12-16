@@ -53,7 +53,7 @@
             </div>
 
             <div class="form-entry">
-                <input type="submit" class="btn btn-primary w-25" style="height: 2rem;" value="Search">
+                <input type="submit" class="btn btn-primary w-25" style="height: 2rem; background-color: #E1C97C !important; border:none; color: #6D6875;" value="Search">
             </div>
 
         </form>
@@ -114,6 +114,7 @@
  label{
      font-weight: bold;
      font-size: 1.1rem;
+     color:#353337;;
  }
 
     input, label,select{
@@ -131,6 +132,7 @@
         height: 0.05rem;
         width: 95%;
         margin: auto;
+        background-color: #E1C97C !important;
     }
 
     .card-title{

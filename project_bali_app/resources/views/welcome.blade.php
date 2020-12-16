@@ -9,7 +9,7 @@
 <section class="hero-image" style="background-image: url('{{asset('/images/main_hero_darkened.jpg')}}') !important;">
     <div class="container" style="padding-top: 10rem;">
         <div class="row">
-            <div class="col-lg-7 text-white m-auto">
+            <div class="col-lg-7 text-white mt-5">
                 <h1 class="heroTitle">Resorts in Bali</h1>
                 <p class="heroSubtitle text-bold">Find your dream resort in a few clicks!</p>
             </div>
