@@ -29,12 +29,10 @@
                edit: false
            }
        },
-
         //runs automatically when the page loads
         created(){
           this.getLodges();
         },
-
         methods:{
            //fetches all data from the api route.
            // fetchLodges(){

@@ -30,3 +30,6 @@ Route::get('/lodge/{id}', function($id){
 
 Route::get('/lodge', [LodgeController::class, 'index'])->name('lodge.index');
 
+
+Route::get('/lodgeTypes', [\App\Http\Controllers\LodgeTypeController::class, 'getAllTypes']);
+
