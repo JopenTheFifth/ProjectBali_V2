@@ -53,7 +53,7 @@
             </div>
 
             <div class="form-entry">
-                <input type="submit" class="btn btn-primary" value="Search">
+                <input type="submit" class="btn btn-primary w-25" style="height: 2rem;" value="Search">
             </div>
 
         </form>
@@ -107,7 +107,7 @@
 
 <style scoped>
  input, select, option{
-     height: 3rem;
+     height: 2.5rem;
  }
 
 

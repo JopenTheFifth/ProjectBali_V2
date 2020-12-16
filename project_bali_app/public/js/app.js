@@ -6515,7 +6515,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "\ninput[data-v-5a834026], select[data-v-5a834026], option[data-v-5a834026]{\n    height: 3rem;\n}\nlabel[data-v-5a834026]{\n    font-weight: bold;\n    font-size: 1.1rem;\n}\ninput[data-v-5a834026], label[data-v-5a834026],select[data-v-5a834026]{\n       display: block;\n}\n.card[data-v-5a834026]{\n       /*background-color: #FFCDB2;*/\n       background-color: rgba(255, 255, 255, 0.3);\n       text-align: center;\n       color: #6D6875;\n}\nhr[data-v-5a834026]{\n       height: 0.05rem;\n       width: 95%;\n       margin: auto;\n}\n.card-title[data-v-5a834026]{\n       font-size: 1.5rem;\n       text-transform: uppercase;\n       padding: 1rem;\n       font-weight: bold;\n       color: #353337;\n}\n.form-entry[data-v-5a834026]{\n       padding-top:1rem;\n}\n", ""]);
+exports.push([module.i, "\ninput[data-v-5a834026], select[data-v-5a834026], option[data-v-5a834026]{\n    height: 2.5rem;\n}\nlabel[data-v-5a834026]{\n    font-weight: bold;\n    font-size: 1.1rem;\n}\ninput[data-v-5a834026], label[data-v-5a834026],select[data-v-5a834026]{\n       display: block;\n}\n.card[data-v-5a834026]{\n       /*background-color: #FFCDB2;*/\n       background-color: rgba(255, 255, 255, 0.3);\n       text-align: center;\n       color: #6D6875;\n}\nhr[data-v-5a834026]{\n       height: 0.05rem;\n       width: 95%;\n       margin: auto;\n}\n.card-title[data-v-5a834026]{\n       font-size: 1.5rem;\n       text-transform: uppercase;\n       padding: 1rem;\n       font-weight: bold;\n       color: #353337;\n}\n.form-entry[data-v-5a834026]{\n       padding-top:1rem;\n}\n", ""]);
 
 // exports
 
@@ -38452,7 +38452,8 @@ var staticRenderFns = [
     var _c = _vm._self._c || _h
     return _c("div", { staticClass: "form-entry" }, [
       _c("input", {
-        staticClass: "btn btn-primary",
+        staticClass: "btn btn-primary w-25",
+        staticStyle: { height: "2rem" },
         attrs: { type: "submit", value: "Search" }
       })
     ])

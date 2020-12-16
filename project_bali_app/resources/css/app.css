@@ -9,7 +9,6 @@ body{
 
 .hero-image{
 
-    height: 100vh !important;
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
@@ -20,6 +19,7 @@ body{
 hr{
     background-color: #B5838D !important;
     height: 0.15rem;
+    width: 40%;
 }
 
 .navbar{
@@ -29,7 +29,7 @@ hr{
 }
 .nav-link{
     color: white;
-    font-size: 1.1rem;
+    font-size: 0.8rem;
 }
 .nav-item{
     padding-left: 0.5rem;
@@ -45,6 +45,15 @@ hr{
 
 }
 
+
+.bodySection{
+    font-family: "Mongolian Baiti", "Segoe UI";
+    text-align: center;
+}
+
+.title{
+    text-transform: uppercase;
+}
 
 .heroTitle{
     font-size: 4rem;
