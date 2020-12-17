@@ -12,6 +12,8 @@ class LodgeController extends Controller
     public function index(){
 
 //        $lodges = \App\Models\Lodge::orderBy('id')->paginate(5);
-        return Lodge::collection(\App\Models\Lodge::all());
+//        return Lodge::collection(\App\Models\Lodge::all());
+
+
     }
 }

@@ -32,24 +32,28 @@
 
             <div >
                 <label for="lodgeType" class="float-left">Lodge type:</label>
-                <select class="form-control" id="lodgeType">
-                    <option class="form-control" v-for="type in lodgeTypes" value="type.name">{{type.name}}</option>
+                <select v-model="searchData.type" class="form-control" id="lodgeType">
+                    <option disabled value="">Choose a lodge type</option>
+                    <option  class="form-control" v-for="type in lodgeTypes" value="type.name">{{type.name}}</option>
                 </select>
+
             </div>
 
             <div class="form-entry" >
                 <label for="check-in" class="float-left">Check-in date:</label>
-                <input class="form-control" id="check-in" type="date">
+                <input v-model="searchData.checkIn" class="form-control" id="check-in" type="date">
+                {{searchData.checkIn}}
             </div>
 
             <div class="form-entry" >
                 <label for="check-out" class="float-left">Check-out date:</label>
-                <input class="form-control" id="check-out" type="date">
+                <input v-model="searchData.checkOut" class="form-control" id="check-out" type="date">
             </div>
 
             <div class="form-entry">
                 <label for="persons" class="float-left">Persons:</label>
-                <input class="form-control" id="persons" type="text">
+                <input v-model="searchData.persons" class="form-control" id="persons" type="text">
+                {{searchData.persons}}
             </div>
 
             <div class="form-entry">
@@ -78,27 +82,35 @@
                     price_per_night: '',
                     lodge_type_id: ''
                 },
+                searchData: {
+                    type: '',
+                    checkIn: '',
+                    checkOut: '',
+                    persons: '',
+                },
+                errors: [],
             }
         },
-        //hooks
+
+        //other hooks include: mounted, updated, destroyed
         created() {
             this.getLodgeTypes();
         },
 
+        updated(){
+
+        },
+
         //methods
         methods:{
-            search(){
 
-            },
             getLodgeTypes(){
                 axios.get('api/lodgeTypes').then((res) => {
                     this.lodgeTypes = res.data.data;
                     console.log(res.data);
                 })
-            }
+            },
         }
-
-
     }
 
 </script>
@@ -122,7 +134,7 @@
     }
 
     input,select{
-        font-size: 0.7rem;
+        font-size: 0.8rem;
 
     }
 

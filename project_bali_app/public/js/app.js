@@ -2041,6 +2041,10 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -2052,16 +2056,23 @@ __webpack_require__.r(__webpack_exports__);
         surface: '',
         price_per_night: '',
         lodge_type_id: ''
-      }
+      },
+      searchData: {
+        type: '',
+        checkIn: '',
+        checkOut: '',
+        persons: ''
+      },
+      errors: []
     };
   },
-  //hooks
+  //other hooks include: mounted, updated, destroyed
   created: function created() {
     this.getLodgeTypes();
   },
+  updated: function updated() {},
   //methods
   methods: {
-    search: function search() {},
     getLodgeTypes: function getLodgeTypes() {
       var _this = this;
 
@@ -6515,7 +6526,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "\ninput[data-v-5a834026], select[data-v-5a834026], option[data-v-5a834026]{\n    height: 2.5rem;\n}\nlabel[data-v-5a834026]{\n    font-weight: bold;\n    font-size: 0.9rem;\n    color:#353337;\n}\ninput[data-v-5a834026], label[data-v-5a834026],select[data-v-5a834026]{\n       display: block;\n}\ninput[data-v-5a834026],select[data-v-5a834026]{\n       font-size: 0.7rem;\n}\n.card[data-v-5a834026]{\n       /*background-color: #FFCDB2;*/\n       background-color: rgba(255, 255, 255, 0.3);\n       text-align: center;\n       color: #6D6875;\n}\nhr[data-v-5a834026]{\n       height: 0.05rem;\n       width: 95%;\n       margin: auto;\n       background-color: #E1C97C !important;\n}\n.card-title[data-v-5a834026]{\n       font-size: 1.5rem;\n       text-transform: uppercase;\n       padding: 1rem;\n       font-weight: bold;\n       color: #353337;\n}\n.form-entry[data-v-5a834026]{\n       padding-top:1rem;\n}\n", ""]);
+exports.push([module.i, "\ninput[data-v-5a834026], select[data-v-5a834026], option[data-v-5a834026]{\n    height: 2.5rem;\n}\nlabel[data-v-5a834026]{\n    font-weight: bold;\n    font-size: 0.9rem;\n    color:#353337;\n}\ninput[data-v-5a834026], label[data-v-5a834026],select[data-v-5a834026]{\n       display: block;\n}\ninput[data-v-5a834026],select[data-v-5a834026]{\n       font-size: 0.8rem;\n}\n.card[data-v-5a834026]{\n       /*background-color: #FFCDB2;*/\n       background-color: rgba(255, 255, 255, 0.3);\n       text-align: center;\n       color: #6D6875;\n}\nhr[data-v-5a834026]{\n       height: 0.05rem;\n       width: 95%;\n       margin: auto;\n       background-color: #E1C97C !important;\n}\n.card-title[data-v-5a834026]{\n       font-size: 1.5rem;\n       text-transform: uppercase;\n       padding: 1rem;\n       font-weight: bold;\n       color: #353337;\n}\n.form-entry[data-v-5a834026]{\n       padding-top:1rem;\n}\n", ""]);
 
 // exports
 
@@ -38369,25 +38380,156 @@ var render = function() {
           _vm._v(" "),
           _c(
             "select",
-            { staticClass: "form-control", attrs: { id: "lodgeType" } },
-            _vm._l(_vm.lodgeTypes, function(type) {
-              return _c(
-                "option",
-                { staticClass: "form-control", attrs: { value: "type.name" } },
-                [_vm._v(_vm._s(type.name))]
-              )
-            }),
-            0
+            {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.searchData.type,
+                  expression: "searchData.type"
+                }
+              ],
+              staticClass: "form-control",
+              attrs: { id: "lodgeType" },
+              on: {
+                change: function($event) {
+                  var $$selectedVal = Array.prototype.filter
+                    .call($event.target.options, function(o) {
+                      return o.selected
+                    })
+                    .map(function(o) {
+                      var val = "_value" in o ? o._value : o.value
+                      return val
+                    })
+                  _vm.$set(
+                    _vm.searchData,
+                    "type",
+                    $event.target.multiple ? $$selectedVal : $$selectedVal[0]
+                  )
+                }
+              }
+            },
+            [
+              _c("option", { attrs: { disabled: "", value: "" } }, [
+                _vm._v("Choose a lodge type")
+              ]),
+              _vm._v(" "),
+              _vm._l(_vm.lodgeTypes, function(type) {
+                return _c(
+                  "option",
+                  {
+                    staticClass: "form-control",
+                    attrs: { value: "type.name" }
+                  },
+                  [_vm._v(_vm._s(type.name))]
+                )
+              })
+            ],
+            2
           )
         ]),
         _vm._v(" "),
-        _vm._m(1),
+        _c("div", { staticClass: "form-entry" }, [
+          _c(
+            "label",
+            { staticClass: "float-left", attrs: { for: "check-in" } },
+            [_vm._v("Check-in date:")]
+          ),
+          _vm._v(" "),
+          _c("input", {
+            directives: [
+              {
+                name: "model",
+                rawName: "v-model",
+                value: _vm.searchData.checkIn,
+                expression: "searchData.checkIn"
+              }
+            ],
+            staticClass: "form-control",
+            attrs: { id: "check-in", type: "date" },
+            domProps: { value: _vm.searchData.checkIn },
+            on: {
+              input: function($event) {
+                if ($event.target.composing) {
+                  return
+                }
+                _vm.$set(_vm.searchData, "checkIn", $event.target.value)
+              }
+            }
+          }),
+          _vm._v(
+            "\n                " +
+              _vm._s(_vm.searchData.checkIn) +
+              "\n            "
+          )
+        ]),
         _vm._v(" "),
-        _vm._m(2),
+        _c("div", { staticClass: "form-entry" }, [
+          _c(
+            "label",
+            { staticClass: "float-left", attrs: { for: "check-out" } },
+            [_vm._v("Check-out date:")]
+          ),
+          _vm._v(" "),
+          _c("input", {
+            directives: [
+              {
+                name: "model",
+                rawName: "v-model",
+                value: _vm.searchData.checkOut,
+                expression: "searchData.checkOut"
+              }
+            ],
+            staticClass: "form-control",
+            attrs: { id: "check-out", type: "date" },
+            domProps: { value: _vm.searchData.checkOut },
+            on: {
+              input: function($event) {
+                if ($event.target.composing) {
+                  return
+                }
+                _vm.$set(_vm.searchData, "checkOut", $event.target.value)
+              }
+            }
+          })
+        ]),
         _vm._v(" "),
-        _vm._m(3),
+        _c("div", { staticClass: "form-entry" }, [
+          _c(
+            "label",
+            { staticClass: "float-left", attrs: { for: "persons" } },
+            [_vm._v("Persons:")]
+          ),
+          _vm._v(" "),
+          _c("input", {
+            directives: [
+              {
+                name: "model",
+                rawName: "v-model",
+                value: _vm.searchData.persons,
+                expression: "searchData.persons"
+              }
+            ],
+            staticClass: "form-control",
+            attrs: { id: "persons", type: "text" },
+            domProps: { value: _vm.searchData.persons },
+            on: {
+              input: function($event) {
+                if ($event.target.composing) {
+                  return
+                }
+                _vm.$set(_vm.searchData, "persons", $event.target.value)
+              }
+            }
+          }),
+          _vm._v(
+            "\n                " +
+              _vm._s(_vm.searchData.persons) +
+              "\n            "
+          )
+        ]),
         _vm._v(" "),
-        _vm._m(4)
+        _vm._m(1)
       ])
     ])
   ])
@@ -38399,51 +38541,6 @@ var staticRenderFns = [
     var _c = _vm._self._c || _h
     return _c("div", { staticClass: "card-title" }, [
       _c("i", [_vm._v("Check availability")])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "form-entry" }, [
-      _c("label", { staticClass: "float-left", attrs: { for: "check-in" } }, [
-        _vm._v("Check-in date:")
-      ]),
-      _vm._v(" "),
-      _c("input", {
-        staticClass: "form-control",
-        attrs: { id: "check-in", type: "date" }
-      })
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "form-entry" }, [
-      _c("label", { staticClass: "float-left", attrs: { for: "check-out" } }, [
-        _vm._v("Check-out date:")
-      ]),
-      _vm._v(" "),
-      _c("input", {
-        staticClass: "form-control",
-        attrs: { id: "check-out", type: "date" }
-      })
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "form-entry" }, [
-      _c("label", { staticClass: "float-left", attrs: { for: "persons" } }, [
-        _vm._v("Persons:")
-      ]),
-      _vm._v(" "),
-      _c("input", {
-        staticClass: "form-control",
-        attrs: { id: "persons", type: "text" }
-      })
     ])
   },
   function() {
@@ -50644,9 +50741,12 @@ module.exports = function(module) {
  * includes Vue and other libraries. It is a great starting point when
  * building robust, powerful web applications using Vue and Laravel.
  */
+//
+// import VueRouter from 'vue-router';
 __webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js");
 
-window.Vue = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.common.js");
+window.Vue = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.common.js"); // Vue.use(VueRouter);
+
 /**
  * The following block of code may be used to automatically register your
  * Vue components. It will recursively scan this directory for the Vue
@@ -50667,7 +50767,9 @@ Vue.component('datepicker-component', __webpack_require__(/*! ./components/datep
 
 var app = new Vue({
   el: '#app'
-});
+}); // const routes = [
+//
+// ]
 
 /***/ }),
 

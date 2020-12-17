@@ -21,4 +21,5 @@ Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
-Route::get('/lodges')->name('lodges');
+
+Route::get('/lodges', [\App\Http\Controllers\LodgeController::class, 'index'])->name('lodges');

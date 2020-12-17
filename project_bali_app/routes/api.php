@@ -21,15 +21,9 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 
 
-
-
-Route::get('/lodge/{id}', function($id){
-   return new \App\Http\Resources\Lodge(Lodge::findOrFail($id));
-});
-
-
-Route::get('/lodge', [LodgeController::class, 'index'])->name('lodge.index');
-
+//Route::get('/lodge/{id}', function($id){
+//   return new \App\Http\Resources\Lodge(Lodge::findOrFail($id));
+//});
 
 Route::get('/lodgeTypes', [\App\Http\Controllers\LodgeTypeController::class, 'getAllTypes']);
 
