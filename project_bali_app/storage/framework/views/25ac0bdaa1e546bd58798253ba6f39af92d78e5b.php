@@ -1,8 +1,8 @@
 <?php $__env->startSection('content'); ?>
 <div class="flex border-b">
-    <div class="container mx-auto">
+    <div class="container my-3">
         <router-link class="mr-4" to="/" exact>Home</router-link>
-        <router-link to="/example">Example</router-link>
+        <router-link to="/lodges">Lodges</router-link>
     </div>
 </div>
 <router-view></router-view>

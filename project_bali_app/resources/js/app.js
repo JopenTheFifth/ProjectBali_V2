@@ -8,11 +8,11 @@ import routes from './routes';
 
 Vue.use(VueRouter);
 
+//this bus allows  data across all components, despite of its hierarchy
+export const serverBus = new Vue();
 
-
-
-Vue.component('example-component', require('./components/ExampleComponent.vue').default);
 Vue.component('datepicker-component', require('./components/datepickerComponent').default);
+Vue.component('searchResult-component', require('./components/searchResultComponent'));
 
 
 

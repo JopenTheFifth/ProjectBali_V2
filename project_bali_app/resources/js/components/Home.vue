@@ -8,7 +8,7 @@
                         <p class="heroSubtitle text-bold">Find your dream resort in a few clicks!</p>
                     </div>
                     <div class="col-lg-5 mb-5">
-                        <datepicker-component></datepicker-component>
+
                     </div>
                 </div>
             </div>

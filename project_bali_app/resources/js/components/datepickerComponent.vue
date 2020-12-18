@@ -1,40 +1,26 @@
 <template>
 
 
-<!--    <div style="float:left;">-->
-<!--        <label for="lodgeType">Lodge type:</label>-->
-<!--        <select id="lodgeType">-->
-<!--            <option class="form-control" v-for="type in lodgeTypes" value="type.name">{{type.name}}</option>-->
-<!--        </select>-->
-<!--    </div>-->
-
-<!--    <div style="float:left;">-->
-<!--        <label for="check-in">Check-in:</label>-->
-<!--        <input id="check-in" type="date" placeholder="Check in date">-->
-<!--    </div>-->
-
-<!--    <div style="float:left;">-->
-<!--        <label for="check-out">Check-out:</label>-->
-<!--        <input id="check-out" type="date" placeholder="Check in date">-->
-<!--    </div>-->
-
-<!--    <div style="float:left;">-->
-<!--        <label for="persons">Persons:</label>-->
-<!--        <input id="persons" type="text" placeholder="Persons">-->
-<!--    </div>-->
 <div class="card">
     <div class="card-title">
         <i>Check availability</i>
     </div>
     <hr />
     <div class="card-body">
-        <form>
+        <form @submit="serverSelected">
+
+            <div v-if="errors.length">
+                <b>Please correct the following error(s):</b>
+                <ul>
+                    <li v-for="error in errors">{{error}}</li>
+                </ul>
+            </div>
 
             <div >
                 <label for="lodgeType" class="float-left">Lodge type:</label>
-                <select v-model="searchData.type" class="form-control" id="lodgeType">
+                <select v-model="searchData.type"  class="form-control" id="lodgeType">
                     <option disabled value="">Choose a lodge type</option>
-                    <option  class="form-control" v-for="type in lodgeTypes" value="type.name">{{type.name}}</option>
+                    <option   class="form-control" v-for="type in lodgeTypes" :value="type.name"  >{{type.name}}</option>
                 </select>
 
             </div>
@@ -52,12 +38,12 @@
 
             <div class="form-entry">
                 <label for="persons" class="float-left">Persons:</label>
-                <input v-model="searchData.persons" class="form-control" id="persons" type="text">
+                <input  v-model="searchData.persons" class="form-control" id="persons" type="text">
                 {{searchData.persons}}
             </div>
 
             <div class="form-entry">
-                <input type="submit" class="btn btn-primary w-25" style="height: 2rem; background-color: #E1C97C !important; border:none; color: #6D6875;" value="Search">
+                <input type="submit" class="btn btn-primary w-25" style="height: 2rem; !important; border:none; color: white;" value="Search">
             </div>
 
         </form>
@@ -69,7 +55,17 @@
 
 </template>
 
+
+
+
+
 <script>
+
+    // use the server bus in the component we want to send data from.
+    //     first we need to import it.
+    import {serverBus} from "../app";
+
+
     export default{
         data(){
             return{
@@ -91,25 +87,58 @@
                 errors: [],
             }
         },
-
+        props: ['server'],
         //other hooks include: mounted, updated, destroyed
         created() {
             this.getLodgeTypes();
         },
 
         updated(){
-
+            console.log(this.searchData.type);
         },
 
         //methods
         methods:{
-
+            serverSelected : function(){
+                //use the server bus
+                serverBus.$emit('serverSelected', this.server);
+            },
             getLodgeTypes(){
                 axios.get('api/lodgeTypes').then((res) => {
                     this.lodgeTypes = res.data.data;
                     console.log(res.data);
                 })
             },
+            redirect(){
+              this.$router.push('/lodges');
+            },
+           checkForm: function(e) {
+                if(this.searchData.checkIn && this.searchData.persons
+                &&this.searchData.checkOut && this.searchData.type){
+                    return true;
+                }
+                //reset error list
+               this.errors = [];
+
+                if(!this.searchData.type){
+                    this.errors.push('type required!');
+                }
+
+               if(!this.searchData.persons){
+                   this.errors.push('Person field required!');
+               }
+
+               if(!this.searchData.checkIn){
+                   this.errors.push('Check in date required');
+               }
+
+               if(!this.searchData.checkOut){
+                   this.errors.push('Check out date required');
+               }
+
+               e.preventDefault();
+           }
+
         }
     }
 
@@ -140,7 +169,7 @@
 
     .card{
         /*background-color: #FFCDB2;*/
-        background-color: rgba(255, 255, 255, 0.3);
+        background-color: #E1C97C;
         text-align: center;
         color: #6D6875;
     }

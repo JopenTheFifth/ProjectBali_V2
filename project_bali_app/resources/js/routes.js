@@ -1,7 +1,6 @@
-
-import ExampleComponent from './components/ExampleComponent';
 import Home from "./components/Home";
 import NotFound from './components/NotFound';
+import Lodges from "./components/Lodges";
 
 export default{
     mode: 'history',
@@ -16,8 +15,10 @@ export default{
             component: Home,
         },
         {
-            path: '/example',
-            component: ExampleComponent
+            path: '/lodges',
+            props: true,
+            component: Lodges,
+            name: Lodges
         }
     ]
 }
