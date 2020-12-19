@@ -6,11 +6,10 @@
 
 <!--        :lodge-type="searchData.type"-->
         <div class="searchResult-container">
-            <search-result-component lodge-type="lodgeType" ></search-result-component>
+            <search-result-component ></search-result-component>
         </div>
 
     </div>
-
 
 </template>
 
@@ -42,7 +41,7 @@ to the one defined on the child components props.
 
         data(){
             return{
-                lodgeType: 'This is a test'
+
             }
         },
         mounted() {

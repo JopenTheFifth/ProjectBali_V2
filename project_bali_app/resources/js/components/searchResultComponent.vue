@@ -1,9 +1,47 @@
 <template>
-    <div class="container">
-        <p>This is where all the search results pop up</p>
-        <h1>{{server.checkIn}}</h1>
+    <div class="container my-3">
+        <p>{{}} lodges match your filters. <a>Clear all filters</a></p>
+
+
+
+        <div v-if="errors.length" class="alert alert-danger">
+            <ul>
+                <li v-for="error in errors">{{error}}</li>
+            </ul>
+        </div>
+
+
+        <div class="searchResultsContainer">
+            <div v-for="lodge in lodges" class="card">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-4 image-col">
+                            <img  class="card-img" src="images/Hero_img4.jpg">
+                        </div>
+                        <div class="col-lg-4 my-5">
+                            <p>{{lodge.name}}</p>
+                            <h1>{{lodge.price_per_night}}</h1>
+                            <button class="btn btn-primary" style="background-color:#E1C97C; color: black; border: none; width: 50%;">Book</button>
+                        </div>
+                        <div class="col-lg-4 my-5">
+                            <div class="card-description">
+                                <p>rating</p>
+                                <p>{{lodge.type}}</p>
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+
+
     </div>
 </template>
+
+
 
 
 
@@ -14,41 +52,64 @@
     import {serverBus} from "../app";
 
 
-
-
     export default{
-        //this component expects values from the datePickerComponent
-        props: {
-            lodgeType: {
-                type: String,
-                required: false
-            },
-            checkIn: {
-                type: Date,
-                required: false
-            },
-            checkOut: {
-                type: Date,
-                required: false,
-            },
-            persons: {
-                type: Number,
-                required: false
-            }
-        },
-
         data(){
             return{
-                server: null
+                searchResults: [],
+                lodges: [],
+                lodge: {
+                    id: '',
+                    name: '',
+                    surface: '',
+                    price_per_night: '',
+                    lodge_type_id: '',
+                    type: {
+                        description: ''
+                    },
+                },
+                errors: ['something went wrong'],
             }
         },
         created(){
             //using the server bus.
             //We do this here because we want to listen to the event as soon as this component has been
             //created
-            serverBus.$on('serverSelected', (server) => {
-               this.server = server;
+            serverBus.$on('dateSelected', (server) => {
+               this.searchResults = server;
+               console.log(this.searchResults);
             });
+            this.getAllLodges();
+        },
+
+        methods: {
+            getAllLodges(){
+                axios.get('api/all-lodges').then((res) => {
+                    this.lodges = res.data.data;
+                    console.log(res.data);
+                });
+            }
         }
+
     }
 </script>
+
+<style scoped>
+    .searchResult-container{
+        display: flex;
+        width: 100%;
+        flex-direction: column;
+        flex: 1;
+    }
+    .card{
+        margin: 1rem;
+    }
+
+    .card-img{
+        width: 300px;
+        height: 300px;
+    }
+
+    .image-col{
+        padding: 0 !important;
+    }
+</style>

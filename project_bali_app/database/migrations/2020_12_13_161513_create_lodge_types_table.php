@@ -15,7 +15,6 @@ class CreateLodgeTypesTable extends Migration
     {
         Schema::create('lodge_types', function (Blueprint $table) {
             $table->id();
-
             $table->string('name');
             $table->text('description');
         });

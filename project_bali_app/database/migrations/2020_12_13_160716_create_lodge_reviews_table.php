@@ -16,10 +16,10 @@ class CreateLodgeReviewsTable extends Migration
         Schema::create('lodge_reviews', function (Blueprint $table) {
             $table->id();
 
-            $table->integer('user_id');
+            $table->unsignedInteger('user_id');
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
 
-            $table->integer('lodge_id');
+            $table->unsignedBigInteger('lodge_id');
             $table->foreign('lodge_id')->references('id')->on('lodges')->onDelete('cascade');
 
             $table->text('comment');

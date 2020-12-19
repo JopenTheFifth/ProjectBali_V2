@@ -2,18 +2,17 @@
 
 namespace Database\Factories;
 
-use App\Models\Lodge;
 use App\Models\LodgeType;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
-class LodgeFactory extends Factory
+class LodgeTypeFactory extends Factory
 {
     /**
      * The name of the factory's corresponding model.
      *
      * @var string
      */
-    protected $model = Lodge::class;
+    protected $model = LodgeType::class;
 
     /**
      * Define the model's default state.
@@ -24,9 +23,7 @@ class LodgeFactory extends Factory
     {
         return [
             'name' => $this->faker->name,
-            'surface' => $this->faker->numberBetween(1, 150),
-            'price_per_night' => $this->faker->numberBetween(1, 999),
-            'lodge_type_id' => '1'
+            'description' => $this->faker->text(100)
         ];
     }
 }

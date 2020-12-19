@@ -20,7 +20,7 @@ class CreateBookingsTable extends Migration
             $table->dateTime('Check-in date');
             $table->dateTime('Check-out date');
 
-            $table->integer('lodge_id');
+            $table->unsignedBigInteger('lodge_id');
             $table->foreign('lodge_id')->references('id')->on('lodges')->onDelete('cascade');
 
 

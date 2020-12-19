@@ -7,7 +7,7 @@
     </div>
     <hr />
     <div class="card-body">
-        <form @submit="serverSelected">
+        <form @submit.prevent="dateSelected">
 
             <div v-if="errors.length">
                 <b>Please correct the following error(s):</b>
@@ -65,19 +65,10 @@
     //     first we need to import it.
     import {serverBus} from "../app";
 
-
     export default{
         data(){
             return{
                 lodgeTypes : [],
-                lodges: [],
-                lodge: {
-                    id: '',
-                    name: '',
-                    surface: '',
-                    price_per_night: '',
-                    lodge_type_id: ''
-                },
                 searchData: {
                     type: '',
                     checkIn: '',
@@ -87,7 +78,7 @@
                 errors: [],
             }
         },
-        props: ['server'],
+
         //other hooks include: mounted, updated, destroyed
         created() {
             this.getLodgeTypes();
@@ -99,9 +90,9 @@
 
         //methods
         methods:{
-            serverSelected : function(){
+            dateSelected : function(){
                 //use the server bus
-                serverBus.$emit('serverSelected', this.server);
+                serverBus.$emit('dateSelected', this.searchData);
             },
             getLodgeTypes(){
                 axios.get('api/lodgeTypes').then((res) => {

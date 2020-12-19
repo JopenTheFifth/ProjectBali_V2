@@ -9,7 +9,6 @@ class Booking extends Model
 {
     use HasFactory;
 
-
     public function lodge(){
         return $this->belongsTo(Lodge::class);
     }

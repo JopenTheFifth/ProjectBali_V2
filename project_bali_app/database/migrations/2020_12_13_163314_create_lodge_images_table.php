@@ -18,7 +18,7 @@ class CreateLodgeImagesTable extends Migration
 
             $table->string('image_path');
 
-            $table->integer('lodge_id');
+            $table->unsignedBigInteger('lodge_id');
             $table->foreign('lodge_id')->references('id')->on('lodges')->onDelete('cascade');
 
             $table->timestamps();

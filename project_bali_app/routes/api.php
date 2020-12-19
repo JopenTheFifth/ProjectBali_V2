@@ -26,4 +26,9 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 //});
 
 Route::get('/lodgeTypes', [\App\Http\Controllers\LodgeTypeController::class, 'getAllTypes']);
+Route::get('/all-lodges', [LodgeController::class, 'getAll']);
+
+Route::get('/lodges/{lodge}/type', function(Lodge $lodge){
+    return $lodge->lodgeType()->get();
+});
 

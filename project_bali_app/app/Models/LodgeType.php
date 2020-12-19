@@ -9,7 +9,9 @@ class LodgeType extends Model
 {
     use HasFactory;
 
+    public $timestamps = false;
+
     public function lodge(){
-        return $this->hasMany(Lodge::class);
+        return $this->BelongsToMany(Lodge::class);
     }
 }

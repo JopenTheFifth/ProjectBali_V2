@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Database\Factories\LodgeTypeFactory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -11,6 +12,7 @@ class Lodge extends Model
 
     //make all fields assignable
     protected $guarded = [];
+
 
     //relations
 
@@ -30,7 +32,7 @@ class Lodge extends Model
         return $this->belongsToMany(AccomodationResource::class);
     }
 
-    public function type(){
+    public function lodgeType(){
         return $this->belongsTo(LodgeType::class);
     }
 
