@@ -6,7 +6,7 @@
 
 <!--        :lodge-type="searchData.type"-->
         <div class="searchResult-container">
-            <search-result-component ></search-result-component>
+            <search-result-component></search-result-component>
         </div>
 
     </div>

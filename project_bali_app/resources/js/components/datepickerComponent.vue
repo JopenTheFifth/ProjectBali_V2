@@ -53,9 +53,9 @@
 
 
 
+
+
 </template>
-
-
 
 
 
@@ -84,8 +84,18 @@
             this.getLodgeTypes();
         },
 
-        updated(){
-            console.log(this.searchData.type);
+        computed: {
+          type() {
+              return this.searchData;
+          }
+        },
+
+        watch: {
+             type() {
+                 //Send msg to searchResultComponent
+                 this.dateSelected()
+                 console.log('type changed!');
+             }
         },
 
         //methods
@@ -100,6 +110,7 @@
                     console.log(res.data);
                 })
             },
+
             redirect(){
               this.$router.push('/lodges');
             },

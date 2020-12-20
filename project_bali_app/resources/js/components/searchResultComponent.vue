@@ -10,6 +10,14 @@
             </ul>
         </div>
 
+        <div v-if="searchResults">
+            <ul>
+                <li v-for="item in searchResults">
+                    {{item}}
+                </li>
+            </ul>
+        </div>
+
 
         <div class="searchResultsContainer">
             <div v-for="lodge in lodges" class="card">
@@ -25,32 +33,22 @@
                         </div>
                         <div class="col-lg-4 my-5">
                             <div class="card-description">
-                                <p>rating</p>
-                                <p>{{lodge.type}}</p>
+                                <p>Display rating</p>
+                                <p>{{lodge.type.description}}</p>
                             </div>
                         </div>
-
                     </div>
-
                 </div>
-
             </div>
         </div>
-
-
     </div>
 </template>
-
-
-
-
 
 
 
 <script>
     //import serverbus which this component listens to
     import {serverBus} from "../app";
-
 
     export default{
         data(){
@@ -67,7 +65,7 @@
                         description: ''
                     },
                 },
-                errors: ['something went wrong'],
+                errors: [],
             }
         },
         created(){
@@ -81,12 +79,29 @@
             this.getAllLodges();
         },
 
+
+        computed: {
+            searchData(){
+                return this.searchResults;
+            }
+        },
+
+        watch: {
+            searchData(){
+                this.getSearchResults();
+            }
+        },
+
+
         methods: {
             getAllLodges(){
                 axios.get('api/all-lodges').then((res) => {
                     this.lodges = res.data.data;
-                    console.log(res.data);
                 });
+            },
+
+            getSearchResults(){
+
             }
         }
 

@@ -3,6 +3,7 @@
 use App\Http\Controllers\LodgeController;
 use App\Models\Lodge;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -31,4 +32,7 @@ Route::get('/all-lodges', [LodgeController::class, 'getAll']);
 Route::get('/lodges/{lodge}/type', function(Lodge $lodge){
     return $lodge->lodgeType()->get();
 });
+
+
+Route::get('/lodges/{type}', [LodgeController::class, 'lodgesWithType']);
 

@@ -2128,8 +2128,17 @@ __webpack_require__.r(__webpack_exports__);
   created: function created() {
     this.getLodgeTypes();
   },
-  updated: function updated() {
-    console.log(this.searchData.type);
+  computed: {
+    type: function type() {
+      return this.searchData;
+    }
+  },
+  watch: {
+    type: function type() {
+      //Send msg to searchResultComponent
+      this.dateSelected();
+      console.log('type changed!');
+    }
   },
   //methods
   methods: {
@@ -2237,7 +2246,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
 //import serverbus which this component listens to
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -2255,7 +2263,7 @@ __webpack_require__.r(__webpack_exports__);
           description: ''
         }
       },
-      errors: ['something went wrong']
+      errors: []
     };
   },
   created: function created() {
@@ -2270,15 +2278,25 @@ __webpack_require__.r(__webpack_exports__);
     });
     this.getAllLodges();
   },
+  computed: {
+    searchData: function searchData() {
+      return this.searchResults;
+    }
+  },
+  watch: {
+    searchData: function searchData() {
+      this.getSearchResults();
+    }
+  },
   methods: {
     getAllLodges: function getAllLodges() {
       var _this2 = this;
 
       axios.get('api/all-lodges').then(function (res) {
         _this2.lodges = res.data.data;
-        console.log(res.data);
       });
-    }
+    },
+    getSearchResults: function getSearchResults() {}
   }
 });
 
@@ -38998,6 +39016,20 @@ var render = function() {
         ])
       : _vm._e(),
     _vm._v(" "),
+    _vm.searchResults
+      ? _c("div", [
+          _c(
+            "ul",
+            _vm._l(_vm.searchResults, function(item) {
+              return _c("li", [
+                _vm._v("\n                " + _vm._s(item) + "\n            ")
+              ])
+            }),
+            0
+          )
+        ])
+      : _vm._e(),
+    _vm._v(" "),
     _c(
       "div",
       { staticClass: "searchResultsContainer" },
@@ -39029,9 +39061,9 @@ var render = function() {
               _vm._v(" "),
               _c("div", { staticClass: "col-lg-4 my-5" }, [
                 _c("div", { staticClass: "card-description" }, [
-                  _c("p", [_vm._v("rating")]),
+                  _c("p", [_vm._v("Display rating")]),
                   _vm._v(" "),
-                  _c("p", [_vm._v(_vm._s(lodge.type))])
+                  _c("p", [_vm._v(_vm._s(lodge.type.description))])
                 ])
               ])
             ])
