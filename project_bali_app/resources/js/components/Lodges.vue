@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class="" style="background-color: #F1F1F1;">
         <div class="datepicker-container container">
             <date-picker-component></date-picker-component>
         </div>

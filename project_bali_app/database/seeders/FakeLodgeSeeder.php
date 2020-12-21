@@ -14,7 +14,7 @@ class FakeLodgeSeeder extends Seeder
      */
     public function run()
     {
-        Lodge::factory(10)
+        Lodge::factory(30)
             ->has(\App\Models\LodgeType::factory()->count(1))->create();
     }
 }

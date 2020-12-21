@@ -42,10 +42,6 @@
                 {{searchData.persons}}
             </div>
 
-            <div class="form-entry">
-                <input type="submit" class="btn btn-primary w-25" style="height: 2rem; !important; border:none; color: white;" value="Search">
-            </div>
-
         </form>
     </div>
 </div>
@@ -86,14 +82,14 @@
 
         computed: {
           type() {
-              return this.searchData;
+              return this.searchData.type;
           }
         },
 
         watch: {
              type() {
                  //Send msg to searchResultComponent
-                 this.dateSelected()
+                 this.dateSelected();
                  console.log('type changed!');
              }
         },

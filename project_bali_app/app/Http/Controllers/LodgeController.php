@@ -24,7 +24,7 @@ class LodgeController extends Controller
     public function lodgesWithType($typeName){
         $lodges = \App\Models\Lodge::query()->whereHas('lodgeType', function(Builder $query) use($typeName){
             $query->where('name', $typeName);
-        })->get();
+        })->with('lodgeType')->get();
         return $lodges;
     }
 }

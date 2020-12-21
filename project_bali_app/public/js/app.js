@@ -2104,10 +2104,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
 // use the server bus in the component we want to send data from.
 //     first we need to import it.
 
@@ -2130,7 +2126,7 @@ __webpack_require__.r(__webpack_exports__);
   },
   computed: {
     type: function type() {
-      return this.searchData;
+      return this.searchData.type;
     }
   },
   watch: {
@@ -2244,8 +2240,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
 //import serverbus which this component listens to
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -2258,10 +2252,7 @@ __webpack_require__.r(__webpack_exports__);
         name: '',
         surface: '',
         price_per_night: '',
-        lodge_type_id: '',
-        type: {
-          description: ''
-        }
+        lodge_type_id: ''
       },
       errors: []
     };
@@ -2274,13 +2265,12 @@ __webpack_require__.r(__webpack_exports__);
     //created
     _app__WEBPACK_IMPORTED_MODULE_0__["serverBus"].$on('dateSelected', function (server) {
       _this.searchResults = server;
-      console.log(_this.searchResults);
     });
     this.getAllLodges();
   },
   computed: {
     searchData: function searchData() {
-      return this.searchResults;
+      return this.searchResults.type;
     }
   },
   watch: {
@@ -2296,7 +2286,13 @@ __webpack_require__.r(__webpack_exports__);
         _this2.lodges = res.data.data;
       });
     },
-    getSearchResults: function getSearchResults() {}
+    getSearchResults: function getSearchResults() {
+      var _this3 = this;
+
+      axios.get('api/lodges/' + this.searchResults.type).then(function (res) {
+        _this3.lodges = res.data;
+      });
+    }
   }
 });
 
@@ -6761,7 +6757,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "\n.searchResult-container[data-v-ee7a3546]{\n    display: flex;\n    width: 100%;\n    flex-direction: column;\n    flex: 1;\n}\n.card[data-v-ee7a3546]{\n    margin: 1rem;\n}\n.card-img[data-v-ee7a3546]{\n    width: 300px;\n    height: 300px;\n}\n.image-col[data-v-ee7a3546]{\n    padding: 0 !important;\n}\n", ""]);
+exports.push([module.i, "\n.searchResult-container[data-v-ee7a3546]{\n    display: flex;\n    width: 100%;\n    flex-direction: column;\n    flex: 1;\n}\n.card[data-v-ee7a3546]{\n    margin: 1rem;\n}\n.card-img[data-v-ee7a3546]{\n    width: 300px;\n    height: 300px;\n}\n.image-col[data-v-ee7a3546]{\n    padding: 0 !important;\n}\n.filter-block[data-v-ee7a3546]{\n    backgound-color:\n}\n", ""]);
 
 // exports
 
@@ -38692,7 +38688,7 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", [
+  return _c("div", { staticStyle: { "background-color": "#F1F1F1" } }, [
     _c(
       "div",
       { staticClass: "datepicker-container container" },
@@ -38950,9 +38946,7 @@ var render = function() {
                 _vm._s(_vm.searchData.persons) +
                 "\n            "
             )
-          ]),
-          _vm._v(" "),
-          _vm._m(1)
+          ])
         ]
       )
     ])
@@ -38965,18 +38959,6 @@ var staticRenderFns = [
     var _c = _vm._self._c || _h
     return _c("div", { staticClass: "card-title" }, [
       _c("i", [_vm._v("Check availability")])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "form-entry" }, [
-      _c("input", {
-        staticClass: "btn btn-primary w-25",
-        staticStyle: { height: "2rem", border: "none", color: "white" },
-        attrs: { type: "submit", value: "Search" }
-      })
     ])
   }
 ]
@@ -39002,7 +38984,12 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", { staticClass: "container my-3" }, [
-    _vm._m(0),
+    _c("p", [
+      _vm._v(_vm._s(_vm.lodges.length) + " lodges match your filters. "),
+      _c("a", { attrs: { href: "" }, on: { click: _vm.getAllLodges } }, [
+        _vm._v("Clear all filters")
+      ])
+    ]),
     _vm._v(" "),
     _vm.errors.length
       ? _c("div", { staticClass: "alert alert-danger" }, [
@@ -39017,16 +39004,14 @@ var render = function() {
       : _vm._e(),
     _vm._v(" "),
     _vm.searchResults
-      ? _c("div", [
-          _c(
-            "ul",
-            _vm._l(_vm.searchResults, function(item) {
-              return _c("li", [
-                _vm._v("\n                " + _vm._s(item) + "\n            ")
-              ])
-            }),
-            0
-          )
+      ? _c("div", { staticClass: "d-inline" }, [
+          _c("div", { staticClass: "d-sm-inline" }, [
+            _vm._v(_vm._s(_vm.searchResults.type))
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "d-sm-inline" }, [
+            _vm._v(_vm._s(_vm.searchResults.persons))
+          ])
         ])
       : _vm._e(),
     _vm._v(" "),
@@ -39034,10 +39019,10 @@ var render = function() {
       "div",
       { staticClass: "searchResultsContainer" },
       _vm._l(_vm.lodges, function(lodge) {
-        return _c("div", { staticClass: "card" }, [
+        return _c("div", { key: lodge.id, staticClass: "card" }, [
           _c("div", { staticClass: "container" }, [
             _c("div", { staticClass: "row" }, [
-              _vm._m(1, true),
+              _vm._m(0, true),
               _vm._v(" "),
               _c("div", { staticClass: "col-lg-4 my-5" }, [
                 _c("p", [_vm._v(_vm._s(lodge.name))]),
@@ -39063,7 +39048,9 @@ var render = function() {
                 _c("div", { staticClass: "card-description" }, [
                   _c("p", [_vm._v("Display rating")]),
                   _vm._v(" "),
-                  _c("p", [_vm._v(_vm._s(lodge.type.description))])
+                  lodge.lodge_type.description
+                    ? _c("p", [_vm._v(_vm._s(lodge.lodge_type.description))])
+                    : _vm._e()
                 ])
               ])
             ])
@@ -39075,15 +39062,6 @@ var render = function() {
   ])
 }
 var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("p", [
-      _vm._v("{{}} lodges match your filters. "),
-      _c("a", [_vm._v("Clear all filters")])
-    ])
-  },
   function() {
     var _vm = this
     var _h = _vm.$createElement

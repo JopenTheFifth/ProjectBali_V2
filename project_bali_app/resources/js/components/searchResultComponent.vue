@@ -1,6 +1,6 @@
 <template>
     <div class="container my-3">
-        <p>{{}} lodges match your filters. <a>Clear all filters</a></p>
+        <p>{{lodges.length}} lodges match your filters. <a href="" @click="getAllLodges">Clear all filters</a></p>
 
 
 
@@ -10,17 +10,15 @@
             </ul>
         </div>
 
-        <div v-if="searchResults">
-            <ul>
-                <li v-for="item in searchResults">
-                    {{item}}
-                </li>
-            </ul>
+        <div v-if="searchResults" class="d-inline">
+            <div class="d-sm-inline">{{searchResults.type}}</div>
+            <div class="d-sm-inline">{{searchResults.persons}}</div>
         </div>
 
 
+
         <div class="searchResultsContainer">
-            <div v-for="lodge in lodges" class="card">
+            <div v-for="lodge in lodges" :key="lodge.id" class="card">
                 <div class="container">
                     <div class="row">
                         <div class="col-md-4 image-col">
@@ -34,7 +32,7 @@
                         <div class="col-lg-4 my-5">
                             <div class="card-description">
                                 <p>Display rating</p>
-                                <p>{{lodge.type.description}}</p>
+                                <p v-if="lodge.lodge_type.description">{{lodge.lodge_type.description}}</p>
                             </div>
                         </div>
                     </div>
@@ -61,9 +59,6 @@
                     surface: '',
                     price_per_night: '',
                     lodge_type_id: '',
-                    type: {
-                        description: ''
-                    },
                 },
                 errors: [],
             }
@@ -74,7 +69,6 @@
             //created
             serverBus.$on('dateSelected', (server) => {
                this.searchResults = server;
-               console.log(this.searchResults);
             });
             this.getAllLodges();
         },
@@ -82,8 +76,8 @@
 
         computed: {
             searchData(){
-                return this.searchResults;
-            }
+                return this.searchResults.type;
+            },
         },
 
         watch: {
@@ -101,8 +95,11 @@
             },
 
             getSearchResults(){
+                axios.get('api/lodges/' + this.searchResults.type ).then((res) => {
+                   this.lodges = res.data;
+                });
+            },
 
-            }
         }
 
     }
@@ -126,5 +123,9 @@
 
     .image-col{
         padding: 0 !important;
+    }
+
+    .filter-block{
+        backgound-color:
     }
 </style>
