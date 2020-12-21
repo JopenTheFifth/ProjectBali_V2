@@ -1,12 +1,12 @@
 <template>
     <div class="container my-5">
 
-        <p>{{lodges.length}} lodges match your filters. <a href="" @click="getAllLodges">Clear all filters</a></p>
+        <p>{{lodges.length}} lodges match your filters. <a href="" @click.prevent="clearAllFilters">Clear all filters</a></p>
 
 
         <div v-if="searchResults" class="d-inline container">
-            <div v-if="searchResults.type" class="filter-block d-sm-inline">{{searchResults.type}}</div>
-            <div v-if="searchResults.persons" class="filter-block d-sm-inline">{{searchResults.persons}} persons</div>
+            <div @click="resetType" v-if="searchResults.type" class="filter-block d-sm-inline">{{searchResults.type}}</div>
+            <div @click="resetPersons" v-if="searchResults.persons" class="filter-block d-sm-inline">{{searchResults.persons}} persons</div>
         </div>
 
 
@@ -100,6 +100,19 @@
                 });
             },
 
+            resetType(){
+                this.searchResults.type = '';
+                this.getAllLodges();
+            },
+
+            resetPersons(){
+                this.searchResults.persons = '';
+                this.getAllLodges();
+            },
+            clearAllFilters(){
+                this.searchResults = [];
+                this.getAllLodges();
+            }
         }
 
     }

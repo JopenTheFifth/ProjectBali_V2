@@ -2290,6 +2290,18 @@ __webpack_require__.r(__webpack_exports__);
       axios.get('api/lodges/' + this.searchResults.type).then(function (res) {
         _this3.lodges = res.data;
       });
+    },
+    resetType: function resetType() {
+      this.searchResults.type = '';
+      this.getAllLodges();
+    },
+    resetPersons: function resetPersons() {
+      this.searchResults.persons = '';
+      this.getAllLodges();
+    },
+    clearAllFilters: function clearAllFilters() {
+      this.searchResults = [];
+      this.getAllLodges();
     }
   }
 });
@@ -38974,23 +38986,43 @@ var render = function() {
   return _c("div", { staticClass: "container my-5" }, [
     _c("p", [
       _vm._v(_vm._s(_vm.lodges.length) + " lodges match your filters. "),
-      _c("a", { attrs: { href: "" }, on: { click: _vm.getAllLodges } }, [
-        _vm._v("Clear all filters")
-      ])
+      _c(
+        "a",
+        {
+          attrs: { href: "" },
+          on: {
+            click: function($event) {
+              $event.preventDefault()
+              return _vm.clearAllFilters($event)
+            }
+          }
+        },
+        [_vm._v("Clear all filters")]
+      )
     ]),
     _vm._v(" "),
     _vm.searchResults
       ? _c("div", { staticClass: "d-inline container" }, [
           _vm.searchResults.type
-            ? _c("div", { staticClass: "filter-block d-sm-inline" }, [
-                _vm._v(_vm._s(_vm.searchResults.type))
-              ])
+            ? _c(
+                "div",
+                {
+                  staticClass: "filter-block d-sm-inline",
+                  on: { click: _vm.resetType }
+                },
+                [_vm._v(_vm._s(_vm.searchResults.type))]
+              )
             : _vm._e(),
           _vm._v(" "),
           _vm.searchResults.persons
-            ? _c("div", { staticClass: "filter-block d-sm-inline" }, [
-                _vm._v(_vm._s(_vm.searchResults.persons) + " persons")
-              ])
+            ? _c(
+                "div",
+                {
+                  staticClass: "filter-block d-sm-inline",
+                  on: { click: _vm.resetPersons }
+                },
+                [_vm._v(_vm._s(_vm.searchResults.persons) + " persons")]
+              )
             : _vm._e()
         ])
       : _vm._e(),
