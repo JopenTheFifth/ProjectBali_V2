@@ -20,7 +20,7 @@
     <link href="<?php echo e(asset('css/app.css')); ?>" rel="stylesheet">
     <link href="<?php echo e(asset('css/all.css')); ?>" rel="stylesheet">
 </head>
-<body>
+<body style="background-color: #F1F1F1;">
     <div id="app">
         <?php echo $__env->yieldContent('content'); ?>
     </div>

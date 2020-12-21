@@ -28,7 +28,6 @@
             <div class="form-entry" >
                 <label for="check-in" class="float-left">Check-in date:</label>
                 <input v-model="searchData.checkIn" class="form-control" id="check-in" type="date">
-                {{searchData.checkIn}}
             </div>
 
             <div class="form-entry" >
@@ -39,7 +38,6 @@
             <div class="form-entry">
                 <label for="persons" class="float-left">Persons:</label>
                 <input  v-model="searchData.persons" class="form-control" id="persons" type="text">
-                {{searchData.persons}}
             </div>
 
         </form>

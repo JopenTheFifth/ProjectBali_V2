@@ -2102,8 +2102,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
 // use the server bus in the component we want to send data from.
 //     first we need to import it.
 
@@ -6757,7 +6755,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "\n.searchResult-container[data-v-ee7a3546]{\n    display: flex;\n    width: 100%;\n    flex-direction: column;\n    flex: 1;\n}\n.card[data-v-ee7a3546]{\n    margin: 1rem;\n}\n.card-img[data-v-ee7a3546]{\n    width: 300px;\n    height: 300px;\n}\n.image-col[data-v-ee7a3546]{\n    padding: 0 !important;\n}\n.filter-block[data-v-ee7a3546]{\n    backgound-color:\n}\n", ""]);
+exports.push([module.i, "\n.searchResult-container[data-v-ee7a3546]{\n    display: flex;\n    width: 100%;\n    flex-direction: column;\n    flex: 1;\n}\n.card[data-v-ee7a3546]{\n    margin: 1rem;\n}\n.card-img[data-v-ee7a3546]{\n    width: 300px;\n    height: 300px;\n}\n.image-col[data-v-ee7a3546]{\n    padding: 0 !important;\n}\n.filter-block[data-v-ee7a3546]{\n    background-color: white;\n    border: 1px solid #707070;\n    padding: 0.8rem;\n    margin-left: 1rem;\n    width: 9rem;\n}\n.filter-block[data-v-ee7a3546]:hover{\n    border: 2px solid #E1C97C;\n    cursor: pointer;\n}\n", ""]);
 
 // exports
 
@@ -38688,7 +38686,7 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { staticStyle: { "background-color": "#F1F1F1" } }, [
+  return _c("div", [
     _c(
       "div",
       { staticClass: "datepicker-container container" },
@@ -38875,12 +38873,7 @@ var render = function() {
                   _vm.$set(_vm.searchData, "checkIn", $event.target.value)
                 }
               }
-            }),
-            _vm._v(
-              "\n                " +
-                _vm._s(_vm.searchData.checkIn) +
-                "\n            "
-            )
+            })
           ]),
           _vm._v(" "),
           _c("div", { staticClass: "form-entry" }, [
@@ -38940,12 +38933,7 @@ var render = function() {
                   _vm.$set(_vm.searchData, "persons", $event.target.value)
                 }
               }
-            }),
-            _vm._v(
-              "\n                " +
-                _vm._s(_vm.searchData.persons) +
-                "\n            "
-            )
+            })
           ])
         ]
       )
@@ -38983,7 +38971,7 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "container my-3" }, [
+  return _c("div", { staticClass: "container my-5" }, [
     _c("p", [
       _vm._v(_vm._s(_vm.lodges.length) + " lodges match your filters. "),
       _c("a", { attrs: { href: "" }, on: { click: _vm.getAllLodges } }, [
@@ -38991,8 +38979,24 @@ var render = function() {
       ])
     ]),
     _vm._v(" "),
+    _vm.searchResults
+      ? _c("div", { staticClass: "d-inline container" }, [
+          _vm.searchResults.type
+            ? _c("div", { staticClass: "filter-block d-sm-inline" }, [
+                _vm._v(_vm._s(_vm.searchResults.type))
+              ])
+            : _vm._e(),
+          _vm._v(" "),
+          _vm.searchResults.persons
+            ? _c("div", { staticClass: "filter-block d-sm-inline" }, [
+                _vm._v(_vm._s(_vm.searchResults.persons) + " persons")
+              ])
+            : _vm._e()
+        ])
+      : _vm._e(),
+    _vm._v(" "),
     _vm.errors.length
-      ? _c("div", { staticClass: "alert alert-danger" }, [
+      ? _c("div", { staticClass: "alert alert-danger my-5" }, [
           _c(
             "ul",
             _vm._l(_vm.errors, function(error) {
@@ -39003,21 +39007,9 @@ var render = function() {
         ])
       : _vm._e(),
     _vm._v(" "),
-    _vm.searchResults
-      ? _c("div", { staticClass: "d-inline" }, [
-          _c("div", { staticClass: "d-sm-inline" }, [
-            _vm._v(_vm._s(_vm.searchResults.type))
-          ]),
-          _vm._v(" "),
-          _c("div", { staticClass: "d-sm-inline" }, [
-            _vm._v(_vm._s(_vm.searchResults.persons))
-          ])
-        ])
-      : _vm._e(),
-    _vm._v(" "),
     _c(
       "div",
-      { staticClass: "searchResultsContainer" },
+      { staticClass: "searchResultsContainer my-5" },
       _vm._l(_vm.lodges, function(lodge) {
         return _c("div", { key: lodge.id, staticClass: "card" }, [
           _c("div", { staticClass: "container" }, [

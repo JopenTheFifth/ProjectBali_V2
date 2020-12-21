@@ -1,23 +1,23 @@
 <template>
-    <div class="container my-3">
+    <div class="container my-5">
+
         <p>{{lodges.length}} lodges match your filters. <a href="" @click="getAllLodges">Clear all filters</a></p>
 
 
+        <div v-if="searchResults" class="d-inline container">
+            <div v-if="searchResults.type" class="filter-block d-sm-inline">{{searchResults.type}}</div>
+            <div v-if="searchResults.persons" class="filter-block d-sm-inline">{{searchResults.persons}} persons</div>
+        </div>
 
-        <div v-if="errors.length" class="alert alert-danger">
+
+        <div v-if="errors.length" class="alert alert-danger my-5">
             <ul>
                 <li v-for="error in errors">{{error}}</li>
             </ul>
         </div>
 
-        <div v-if="searchResults" class="d-inline">
-            <div class="d-sm-inline">{{searchResults.type}}</div>
-            <div class="d-sm-inline">{{searchResults.persons}}</div>
-        </div>
 
-
-
-        <div class="searchResultsContainer">
+        <div class="searchResultsContainer my-5">
             <div v-for="lodge in lodges" :key="lodge.id" class="card">
                 <div class="container">
                     <div class="row">
@@ -126,6 +126,14 @@
     }
 
     .filter-block{
-        backgound-color:
+        background-color: white;
+        border: 1px solid #707070;
+        padding: 0.8rem;
+        margin-left: 1rem;
+        width: 9rem;
+    }
+    .filter-block:hover{
+        border: 2px solid #E1C97C;
+        cursor: pointer;
     }
 </style>
