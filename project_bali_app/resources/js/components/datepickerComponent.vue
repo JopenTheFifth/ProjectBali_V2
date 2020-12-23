@@ -3,7 +3,7 @@
 
 <div class="card">
     <div class="card-title">
-        <i>Check availability</i>
+        <i>Find lodges</i>
     </div>
     <hr />
     <div class="card-body">

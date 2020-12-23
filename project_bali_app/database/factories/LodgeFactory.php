@@ -26,6 +26,7 @@ class LodgeFactory extends Factory
             'name' => $this->faker->name,
             'surface' => $this->faker->numberBetween(1, 150),
             'price_per_night' => $this->faker->numberBetween(1, 999),
+            'max_person' => $this->faker->numberBetween(1, 8),
             'lodge_type_id' => $this->faker->numberBetween(1, 10),
         ];
     }

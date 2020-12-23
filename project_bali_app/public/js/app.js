@@ -38958,7 +38958,7 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("div", { staticClass: "card-title" }, [
-      _c("i", [_vm._v("Check availability")])
+      _c("i", [_vm._v("Find lodges")])
     ])
   }
 ]

@@ -18,7 +18,7 @@ class CreateLodgesTable extends Migration
             $table->string('name');
             $table->integer('surface');
             $table->decimal('price_per_night');
-
+            $table->integer('max_person');
 
             $table->unsignedBigInteger('lodge_type_id');
             $table->foreign('lodge_type_id')->references('id')->on('lodge_types')->onDelete('cascade');
