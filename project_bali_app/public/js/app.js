@@ -2245,13 +2245,6 @@ __webpack_require__.r(__webpack_exports__);
     return {
       searchResults: [],
       lodges: [],
-      lodge: {
-        id: '',
-        name: '',
-        surface: '',
-        price_per_night: '',
-        lodge_type_id: ''
-      },
       errors: []
     };
   },
@@ -2287,7 +2280,7 @@ __webpack_require__.r(__webpack_exports__);
     getSearchResults: function getSearchResults() {
       var _this3 = this;
 
-      axios.get('api/lodges/' + this.searchResults.type).then(function (res) {
+      axios.get('api/lodges/' + this.searchResults.type + '/' + this.searchResults.persons).then(function (res) {
         _this3.lodges = res.data;
       });
     },

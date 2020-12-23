@@ -81,7 +81,7 @@
         computed: {
           type() {
               return this.searchData.type;
-          }
+          },
         },
 
         watch: {
@@ -89,7 +89,7 @@
                  //Send msg to searchResultComponent
                  this.dateSelected();
                  console.log('type changed!');
-             }
+             },
         },
 
         //methods

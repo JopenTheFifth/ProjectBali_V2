@@ -34,5 +34,5 @@ Route::get('/lodges/{lodge}/type', function(Lodge $lodge){
 });
 
 
-Route::get('/lodges/{type}', [LodgeController::class, 'lodgesWithType']);
+Route::get('/lodges/{type}/{max_person?}', [LodgeController::class, 'lodgesWithType']);
 

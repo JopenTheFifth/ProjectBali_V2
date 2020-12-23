@@ -7,6 +7,7 @@ use App\Http\Resources\LodgeResource;
 use App\Models\LodgeType;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
+use phpDocumentor\Reflection\Types\Integer;
 
 class LodgeController extends Controller
 {
@@ -21,10 +22,14 @@ class LodgeController extends Controller
     }
 
 
-    public function lodgesWithType($typeName){
+    public function lodgesWithType($typeName, $max_person = null){
         $lodges = \App\Models\Lodge::query()->whereHas('lodgeType', function(Builder $query) use($typeName){
             $query->where('name', $typeName);
         })->with('lodgeType')->get();
+
+        if(!empty($max_person)){
+           $lodges = $lodges->where('max_person',  '<=' , $max_person);
+        }
         return $lodges;
     }
 }

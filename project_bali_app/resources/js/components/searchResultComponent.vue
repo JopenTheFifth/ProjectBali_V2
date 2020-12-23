@@ -53,13 +53,6 @@
             return{
                 searchResults: [],
                 lodges: [],
-                lodge: {
-                    id: '',
-                    name: '',
-                    surface: '',
-                    price_per_night: '',
-                    lodge_type_id: '',
-                },
                 errors: [],
             }
         },
@@ -95,8 +88,8 @@
             },
 
             getSearchResults(){
-                axios.get('api/lodges/' + this.searchResults.type ).then((res) => {
-                   this.lodges = res.data;
+                axios.get('api/lodges/' + this.searchResults.type + '/' + this.searchResults.persons).then((res) => {
+                    this.lodges = res.data;
                 });
             },
 
@@ -104,7 +97,6 @@
                 this.searchResults.type = '';
                 this.getAllLodges();
             },
-
             resetPersons(){
                 this.searchResults.persons = '';
                 this.getAllLodges();
