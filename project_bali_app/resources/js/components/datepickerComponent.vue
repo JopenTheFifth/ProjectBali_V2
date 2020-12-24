@@ -20,19 +20,19 @@
                 <label for="lodgeType" class="float-left">Lodge type:</label>
                 <select v-model="searchData.type"  class="form-control" id="lodgeType">
                     <option disabled value="">Choose a lodge type</option>
-                    <option   class="form-control" v-for="type in lodgeTypes" :value="type.name"  >{{type.name}}</option>
+                    <option  class="form-control" v-for="type in lodgeTypes" :value="type.name"  >{{type.name}}</option>
                 </select>
 
             </div>
 
             <div class="form-entry" >
                 <label for="check-in" class="float-left">Check-in date:</label>
-                <input v-model="searchData.checkIn" class="form-control" id="check-in" type="date">
+                <input  v-model="searchData.checkIn" class="form-control" id="check-in" type="date">
             </div>
 
             <div class="form-entry" >
                 <label for="check-out" class="float-left">Check-out date:</label>
-                <input v-model="searchData.checkOut" class="form-control" id="check-out" type="date">
+                <input  v-model="searchData.checkOut" class="form-control" id="check-out" type="date">
             </div>
 
             <div class="form-entry">
@@ -60,9 +60,21 @@
     import {serverBus} from "../app";
 
     export default{
+
+        props: {
+            searchResults: {
+                type: String,
+                checkIn: Date,
+                checkOut: Date,
+                persons: Number,
+            }
+        },
         data(){
+
             return{
                 lodgeTypes : [],
+
+                //this is received over the serverBus
                 searchData: {
                     type: '',
                     checkIn: '',
@@ -79,17 +91,23 @@
         },
 
         computed: {
-          type() {
-              return this.searchData.type;
+          onChange() {
+              return this.searchData;
           },
         },
 
         watch: {
-             type() {
+             onChange() {
                  //Send msg to searchResultComponent
+
                  this.dateSelected();
-                 console.log('type changed!');
+
              },
+            searchResults: {
+                 deep: true,
+
+            }
+
         },
 
         //methods

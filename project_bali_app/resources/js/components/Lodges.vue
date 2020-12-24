@@ -32,6 +32,15 @@ to the one defined on the child components props.
 
 
 
+
+
+RESTRUCTURE
+
+Whenever a change is made in the datePickerComponent. Send the new data to this root component.
+This component will then make an API request and store the corresponding search Data.
+The results of the API request will then be send to the searchResultComponent via PROPS.
+
+
 <script>
     import datepickerComponent from "./datepickerComponent";
     import searchResultComponent from "./searchResultComponent";

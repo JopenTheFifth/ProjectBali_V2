@@ -69,10 +69,13 @@
 
         computed: {
             searchData(){
-                return this.searchResults.type;
+                return this.searchResults;
             },
         },
 
+        //the result will always be 0 when only the persons is filled in.
+        //but in the case a lodgeType IS already selected, and the persons field changes. it should query again.
+        //currently it only seems to reQuery everything on change of lodgeType.
         watch: {
             searchData(){
                 this.getSearchResults();

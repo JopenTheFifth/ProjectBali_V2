@@ -2003,6 +2003,15 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -2106,9 +2115,18 @@ __webpack_require__.r(__webpack_exports__);
 //     first we need to import it.
 
 /* harmony default export */ __webpack_exports__["default"] = ({
+  props: {
+    searchResults: {
+      type: String,
+      checkIn: Date,
+      checkOut: Date,
+      persons: Number
+    }
+  },
   data: function data() {
     return {
       lodgeTypes: [],
+      //this is received over the serverBus
       searchData: {
         type: '',
         checkIn: '',
@@ -2123,15 +2141,17 @@ __webpack_require__.r(__webpack_exports__);
     this.getLodgeTypes();
   },
   computed: {
-    type: function type() {
-      return this.searchData.type;
+    onChange: function onChange() {
+      return this.searchData;
     }
   },
   watch: {
-    type: function type() {
+    onChange: function onChange() {
       //Send msg to searchResultComponent
       this.dateSelected();
-      console.log('type changed!');
+    },
+    searchResults: {
+      deep: true
     }
   },
   //methods
@@ -2261,9 +2281,12 @@ __webpack_require__.r(__webpack_exports__);
   },
   computed: {
     searchData: function searchData() {
-      return this.searchResults.type;
+      return this.searchResults;
     }
   },
+  //the result will always be 0 when only the persons is filled in.
+  //but in the case a lodgeType IS already selected, and the persons field changes. it should query again.
+  //currently it only seems to reQuery everything on change of lodgeType.
   watch: {
     searchData: function searchData() {
       this.getSearchResults();
