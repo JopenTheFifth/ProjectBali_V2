@@ -1,7 +1,7 @@
 <template>
     <div class="container my-5">
 
-        <p>{{searchResults.length}} lodges match your filters. <a href="" @click.prevent="clearAllFilters">Clear all filters</a></p>
+        <p><strong>{{searchResults.length}} lodges </strong> match your filters. <a href="" @click.prevent="clearAllFilters">Clear all filters</a></p>
 
 
         <div v-if="searchResults" class="d-inline container">
@@ -20,15 +20,15 @@
             <div v-for="lodge in searchResults" :key="lodge.id" class="card">
                 <div class="container">
                     <div class="row">
-                        <div class="col-md-4 image-col">
-                            <img  class="card-img" src="images/Hero_img4.jpg">
+                        <div class="col-lg-4 image-col">
+                            <img class="card-img" src="images/Hero_img4.jpg">
                         </div>
-                        <div class="col-lg-4 my-5">
-                            <p>{{lodge.name}}</p>
-                            <h1>{{lodge.price_per_night}}</h1>
-                            <button class="btn btn-primary" style="background-color:#E1C97C; color: black; border: none; width: 50%;">Book</button>
+                        <div class="col-lg-4" style="text-align: center;">
+                            <p class="title my-5 ">{{lodge.name}}</p>
+                            <h3 class="my-5 ">{{lodge.price_per_night}}</h3>
+                            <button @click="$router.push({name: 'Booking', params: {lodge: lodge}})" class="my-2 btn btn-primary" style="background-color:#E1C97C; color: black; border: none; width: 50%;">Book</button>
                         </div>
-                        <div class="col-lg-4 my-5">
+                        <div class="col-lg-4">
                             <div class="card-description">
                                 <p>Display rating</p>
                                 <p v-if="lodge.lodge_type.description">{{lodge.lodge_type.description}}</p>
@@ -53,13 +53,8 @@
         },
         data(){
             return{
-
             }
         },
-        methods: {
-
-        }
-
     }
 </script>
 
@@ -75,7 +70,7 @@
     }
 
     .card-img{
-        width: 300px;
+        width: 100%;
         height: 300px;
     }
 
@@ -93,5 +88,14 @@
     .filter-block:hover{
         border: 2px solid #E1C97C;
         cursor: pointer;
+    }
+
+    .col-lg-4{
+        margin: auto;
+    }
+
+    .title{
+        font-weight: bold;
+        font-size: 1.2rem;
     }
 </style>

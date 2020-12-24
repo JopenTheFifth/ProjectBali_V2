@@ -1,6 +1,7 @@
 import Home from "./components/Home";
 import NotFound from './components/NotFound';
 import Lodges from "./components/Lodges";
+import Booking from "./components/Booking"
 
 export default{
     mode: 'history',
@@ -19,6 +20,12 @@ export default{
             props: true,
             component: Lodges,
             name: Lodges
+        },
+        {
+            path: '/lodge/book',
+            props: true,
+            component: Booking,
+            name: 'Booking'
         }
     ]
 }

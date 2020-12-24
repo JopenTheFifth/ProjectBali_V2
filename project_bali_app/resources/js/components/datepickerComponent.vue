@@ -39,9 +39,6 @@
 
 
 
-
-
-
 </template>
 
 
@@ -53,7 +50,6 @@
     import {serverBus} from "../app";
 
     export default{
-
 
         data(){
             return{
