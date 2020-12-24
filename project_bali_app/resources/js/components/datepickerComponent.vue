@@ -7,14 +7,7 @@
     </div>
     <hr />
     <div class="card-body">
-        <form @submit.prevent="dateSelected">
-
-            <div v-if="errors.length">
-                <b>Please correct the following error(s):</b>
-                <ul>
-                    <li v-for="error in errors">{{error}}</li>
-                </ul>
-            </div>
+        <form>
 
             <div >
                 <label for="lodgeType" class="float-left">Lodge type:</label>
@@ -61,27 +54,17 @@
 
     export default{
 
-        props: {
-            searchResults: {
-                type: String,
-                checkIn: Date,
-                checkOut: Date,
-                persons: Number,
-            }
-        },
-        data(){
 
+        data(){
             return{
                 lodgeTypes : [],
-
-                //this is received over the serverBus
                 searchData: {
                     type: '',
                     checkIn: '',
                     checkOut: '',
-                    persons: '',
+                    persons: ''
                 },
-                errors: [],
+                errors: []
             }
         },
 
@@ -91,38 +74,47 @@
         },
 
         computed: {
-          onChange() {
-              return this.searchData;
+            //checks if any of the form data has been changed.
+          onTypeChange() {
+              return this.searchData.type;
           },
+            onPersonChange(){
+              return this.searchData.persons;
+            },
+            errorOccurred(){
+              return this.errors;
+            },
         },
 
         watch: {
-             onChange() {
+             onTypeChange() {
                  //Send msg to searchResultComponent
-
                  this.dateSelected();
-
              },
-            searchResults: {
-                 deep: true,
-
+            onPersonChange(){
+                 this.dateSelected();
+            },
+            errorOccurred(){
+                 this.sendError();
             }
-
         },
 
-        //methods
         methods:{
             dateSelected : function(){
                 //use the server bus
                 serverBus.$emit('dateSelected', this.searchData);
             },
+            sendError: function(){
+                serverBus.$emit('errorOccurred', this.errors);
+            },
+
+
             getLodgeTypes(){
                 axios.get('api/lodgeTypes').then((res) => {
                     this.lodgeTypes = res.data.data;
                     console.log(res.data);
                 })
             },
-
             redirect(){
               this.$router.push('/lodges');
             },

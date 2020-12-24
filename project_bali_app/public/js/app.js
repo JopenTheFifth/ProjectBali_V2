@@ -1969,6 +1969,7 @@ __webpack_require__.r(__webpack_exports__);
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _datepickerComponent__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./datepickerComponent */ "./resources/js/components/datepickerComponent.vue");
 /* harmony import */ var _searchResultComponent__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./searchResultComponent */ "./resources/js/components/searchResultComponent.vue");
+/* harmony import */ var _app__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../app */ "./resources/js/app.js");
 //
 //
 //
@@ -1998,27 +1999,47 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
+
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
-    return {};
+    return {
+      searchResults: {},
+      //contains all the lodges based on the searchResult.
+      lodges: []
+    };
   },
-  mounted: function mounted() {},
+  created: function created() {
+    var _this = this;
+
+    //listen to dateSelected event.
+    _app__WEBPACK_IMPORTED_MODULE_2__["serverBus"].$on('dateSelected', function (server) {
+      _this.searchResults = server;
+
+      _this.getSearchResults();
+    });
+    _app__WEBPACK_IMPORTED_MODULE_2__["serverBus"].$on('errorOccurred', function (server) {
+      _this.errors = server;
+    });
+    this.getAllLodges();
+  },
+  methods: {
+    getAllLodges: function getAllLodges() {
+      var _this2 = this;
+
+      axios.get('api/all-lodges').then(function (res) {
+        _this2.searchResults = res.data.data;
+      });
+    },
+    getSearchResults: function getSearchResults() {
+      var _this3 = this;
+
+      axios.get('api/lodges/' + this.searchResults.type + '/' + this.searchResults.persons).then(function (res) {
+        _this3.lodges = res.data;
+      });
+    }
+  },
   components: {
     datePickerComponent: _datepickerComponent__WEBPACK_IMPORTED_MODULE_0__["default"],
     searchResultComponent: _searchResultComponent__WEBPACK_IMPORTED_MODULE_1__["default"]
@@ -2104,29 +2125,13 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
 // use the server bus in the component we want to send data from.
 //     first we need to import it.
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-  props: {
-    searchResults: {
-      type: String,
-      checkIn: Date,
-      checkOut: Date,
-      persons: Number
-    }
-  },
   data: function data() {
     return {
       lodgeTypes: [],
-      //this is received over the serverBus
       searchData: {
         type: '',
         checkIn: '',
@@ -2141,24 +2146,36 @@ __webpack_require__.r(__webpack_exports__);
     this.getLodgeTypes();
   },
   computed: {
-    onChange: function onChange() {
-      return this.searchData;
+    //checks if any of the form data has been changed.
+    onTypeChange: function onTypeChange() {
+      return this.searchData.type;
+    },
+    onPersonChange: function onPersonChange() {
+      return this.searchData.persons;
+    },
+    errorOccurred: function errorOccurred() {
+      return this.errors;
     }
   },
   watch: {
-    onChange: function onChange() {
+    onTypeChange: function onTypeChange() {
       //Send msg to searchResultComponent
       this.dateSelected();
     },
-    searchResults: {
-      deep: true
+    onPersonChange: function onPersonChange() {
+      this.dateSelected();
+    },
+    errorOccurred: function errorOccurred() {
+      this.sendError();
     }
   },
-  //methods
   methods: {
     dateSelected: function dateSelected() {
       //use the server bus
       _app__WEBPACK_IMPORTED_MODULE_0__["serverBus"].$emit('dateSelected', this.searchData);
+    },
+    sendError: function sendError() {
+      _app__WEBPACK_IMPORTED_MODULE_0__["serverBus"].$emit('errorOccurred', this.errors);
     },
     getLodgeTypes: function getLodgeTypes() {
       var _this = this;
@@ -2211,7 +2228,6 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _app__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../app */ "./resources/js/app.js");
 //
 //
 //
@@ -2256,70 +2272,15 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//import serverbus which this component listens to
-
 /* harmony default export */ __webpack_exports__["default"] = ({
+  props: {
+    searchResults: {},
+    errors: []
+  },
   data: function data() {
-    return {
-      searchResults: [],
-      lodges: [],
-      errors: []
-    };
+    return {};
   },
-  created: function created() {
-    var _this = this;
-
-    //using the server bus.
-    //We do this here because we want to listen to the event as soon as this component has been
-    //created
-    _app__WEBPACK_IMPORTED_MODULE_0__["serverBus"].$on('dateSelected', function (server) {
-      _this.searchResults = server;
-    });
-    this.getAllLodges();
-  },
-  computed: {
-    searchData: function searchData() {
-      return this.searchResults;
-    }
-  },
-  //the result will always be 0 when only the persons is filled in.
-  //but in the case a lodgeType IS already selected, and the persons field changes. it should query again.
-  //currently it only seems to reQuery everything on change of lodgeType.
-  watch: {
-    searchData: function searchData() {
-      this.getSearchResults();
-    }
-  },
-  methods: {
-    getAllLodges: function getAllLodges() {
-      var _this2 = this;
-
-      axios.get('api/all-lodges').then(function (res) {
-        _this2.lodges = res.data.data;
-      });
-    },
-    getSearchResults: function getSearchResults() {
-      var _this3 = this;
-
-      axios.get('api/lodges/' + this.searchResults.type + '/' + this.searchResults.persons).then(function (res) {
-        _this3.lodges = res.data;
-      });
-    },
-    resetType: function resetType() {
-      this.searchResults.type = '';
-      this.getAllLodges();
-    },
-    resetPersons: function resetPersons() {
-      this.searchResults.persons = '';
-      this.getAllLodges();
-    },
-    clearAllFilters: function clearAllFilters() {
-      this.searchResults = [];
-      this.getAllLodges();
-    }
-  }
+  methods: {}
 });
 
 /***/ }),
@@ -38725,7 +38686,11 @@ var render = function() {
     _c(
       "div",
       { staticClass: "searchResult-container" },
-      [_c("search-result-component")],
+      [
+        _c("search-result-component", {
+          attrs: { "search-results": _vm.lodges }
+        })
+      ],
       1
     )
   ])
@@ -38791,180 +38756,155 @@ var render = function() {
     _c("hr"),
     _vm._v(" "),
     _c("div", { staticClass: "card-body" }, [
-      _c(
-        "form",
-        {
-          on: {
-            submit: function($event) {
-              $event.preventDefault()
-              return _vm.dateSelected($event)
-            }
-          }
-        },
-        [
-          _vm.errors.length
-            ? _c("div", [
-                _c("b", [_vm._v("Please correct the following error(s):")]),
-                _vm._v(" "),
-                _c(
-                  "ul",
-                  _vm._l(_vm.errors, function(error) {
-                    return _c("li", [_vm._v(_vm._s(error))])
-                  }),
-                  0
-                )
-              ])
-            : _vm._e(),
+      _c("form", [
+        _c("div", [
+          _c(
+            "label",
+            { staticClass: "float-left", attrs: { for: "lodgeType" } },
+            [_vm._v("Lodge type:")]
+          ),
           _vm._v(" "),
-          _c("div", [
-            _c(
-              "label",
-              { staticClass: "float-left", attrs: { for: "lodgeType" } },
-              [_vm._v("Lodge type:")]
-            ),
-            _vm._v(" "),
-            _c(
-              "select",
-              {
-                directives: [
-                  {
-                    name: "model",
-                    rawName: "v-model",
-                    value: _vm.searchData.type,
-                    expression: "searchData.type"
-                  }
-                ],
-                staticClass: "form-control",
-                attrs: { id: "lodgeType" },
-                on: {
-                  change: function($event) {
-                    var $$selectedVal = Array.prototype.filter
-                      .call($event.target.options, function(o) {
-                        return o.selected
-                      })
-                      .map(function(o) {
-                        var val = "_value" in o ? o._value : o.value
-                        return val
-                      })
-                    _vm.$set(
-                      _vm.searchData,
-                      "type",
-                      $event.target.multiple ? $$selectedVal : $$selectedVal[0]
-                    )
-                  }
+          _c(
+            "select",
+            {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.searchData.type,
+                  expression: "searchData.type"
                 }
-              },
-              [
-                _c("option", { attrs: { disabled: "", value: "" } }, [
-                  _vm._v("Choose a lodge type")
-                ]),
-                _vm._v(" "),
-                _vm._l(_vm.lodgeTypes, function(type) {
-                  return _c(
-                    "option",
-                    {
-                      staticClass: "form-control",
-                      domProps: { value: type.name }
-                    },
-                    [_vm._v(_vm._s(type.name))]
+              ],
+              staticClass: "form-control",
+              attrs: { id: "lodgeType" },
+              on: {
+                change: function($event) {
+                  var $$selectedVal = Array.prototype.filter
+                    .call($event.target.options, function(o) {
+                      return o.selected
+                    })
+                    .map(function(o) {
+                      var val = "_value" in o ? o._value : o.value
+                      return val
+                    })
+                  _vm.$set(
+                    _vm.searchData,
+                    "type",
+                    $event.target.multiple ? $$selectedVal : $$selectedVal[0]
                   )
-                })
-              ],
-              2
-            )
-          ]),
-          _vm._v(" "),
-          _c("div", { staticClass: "form-entry" }, [
-            _c(
-              "label",
-              { staticClass: "float-left", attrs: { for: "check-in" } },
-              [_vm._v("Check-in date:")]
-            ),
-            _vm._v(" "),
-            _c("input", {
-              directives: [
-                {
-                  name: "model",
-                  rawName: "v-model",
-                  value: _vm.searchData.checkIn,
-                  expression: "searchData.checkIn"
-                }
-              ],
-              staticClass: "form-control",
-              attrs: { id: "check-in", type: "date" },
-              domProps: { value: _vm.searchData.checkIn },
-              on: {
-                input: function($event) {
-                  if ($event.target.composing) {
-                    return
-                  }
-                  _vm.$set(_vm.searchData, "checkIn", $event.target.value)
                 }
               }
-            })
-          ]),
+            },
+            [
+              _c("option", { attrs: { disabled: "", value: "" } }, [
+                _vm._v("Choose a lodge type")
+              ]),
+              _vm._v(" "),
+              _vm._l(_vm.lodgeTypes, function(type) {
+                return _c(
+                  "option",
+                  {
+                    staticClass: "form-control",
+                    domProps: { value: type.name }
+                  },
+                  [_vm._v(_vm._s(type.name))]
+                )
+              })
+            ],
+            2
+          )
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "form-entry" }, [
+          _c(
+            "label",
+            { staticClass: "float-left", attrs: { for: "check-in" } },
+            [_vm._v("Check-in date:")]
+          ),
           _vm._v(" "),
-          _c("div", { staticClass: "form-entry" }, [
-            _c(
-              "label",
-              { staticClass: "float-left", attrs: { for: "check-out" } },
-              [_vm._v("Check-out date:")]
-            ),
-            _vm._v(" "),
-            _c("input", {
-              directives: [
-                {
-                  name: "model",
-                  rawName: "v-model",
-                  value: _vm.searchData.checkOut,
-                  expression: "searchData.checkOut"
-                }
-              ],
-              staticClass: "form-control",
-              attrs: { id: "check-out", type: "date" },
-              domProps: { value: _vm.searchData.checkOut },
-              on: {
-                input: function($event) {
-                  if ($event.target.composing) {
-                    return
-                  }
-                  _vm.$set(_vm.searchData, "checkOut", $event.target.value)
-                }
+          _c("input", {
+            directives: [
+              {
+                name: "model",
+                rawName: "v-model",
+                value: _vm.searchData.checkIn,
+                expression: "searchData.checkIn"
               }
-            })
-          ]),
+            ],
+            staticClass: "form-control",
+            attrs: { id: "check-in", type: "date" },
+            domProps: { value: _vm.searchData.checkIn },
+            on: {
+              input: function($event) {
+                if ($event.target.composing) {
+                  return
+                }
+                _vm.$set(_vm.searchData, "checkIn", $event.target.value)
+              }
+            }
+          })
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "form-entry" }, [
+          _c(
+            "label",
+            { staticClass: "float-left", attrs: { for: "check-out" } },
+            [_vm._v("Check-out date:")]
+          ),
           _vm._v(" "),
-          _c("div", { staticClass: "form-entry" }, [
-            _c(
-              "label",
-              { staticClass: "float-left", attrs: { for: "persons" } },
-              [_vm._v("Persons:")]
-            ),
-            _vm._v(" "),
-            _c("input", {
-              directives: [
-                {
-                  name: "model",
-                  rawName: "v-model",
-                  value: _vm.searchData.persons,
-                  expression: "searchData.persons"
-                }
-              ],
-              staticClass: "form-control",
-              attrs: { id: "persons", type: "text" },
-              domProps: { value: _vm.searchData.persons },
-              on: {
-                input: function($event) {
-                  if ($event.target.composing) {
-                    return
-                  }
-                  _vm.$set(_vm.searchData, "persons", $event.target.value)
-                }
+          _c("input", {
+            directives: [
+              {
+                name: "model",
+                rawName: "v-model",
+                value: _vm.searchData.checkOut,
+                expression: "searchData.checkOut"
               }
-            })
-          ])
-        ]
-      )
+            ],
+            staticClass: "form-control",
+            attrs: { id: "check-out", type: "date" },
+            domProps: { value: _vm.searchData.checkOut },
+            on: {
+              input: function($event) {
+                if ($event.target.composing) {
+                  return
+                }
+                _vm.$set(_vm.searchData, "checkOut", $event.target.value)
+              }
+            }
+          })
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "form-entry" }, [
+          _c(
+            "label",
+            { staticClass: "float-left", attrs: { for: "persons" } },
+            [_vm._v("Persons:")]
+          ),
+          _vm._v(" "),
+          _c("input", {
+            directives: [
+              {
+                name: "model",
+                rawName: "v-model",
+                value: _vm.searchData.persons,
+                expression: "searchData.persons"
+              }
+            ],
+            staticClass: "form-control",
+            attrs: { id: "persons", type: "text" },
+            domProps: { value: _vm.searchData.persons },
+            on: {
+              input: function($event) {
+                if ($event.target.composing) {
+                  return
+                }
+                _vm.$set(_vm.searchData, "persons", $event.target.value)
+              }
+            }
+          })
+        ])
+      ])
     ])
   ])
 }
@@ -39001,7 +38941,7 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c("div", { staticClass: "container my-5" }, [
     _c("p", [
-      _vm._v(_vm._s(_vm.lodges.length) + " lodges match your filters. "),
+      _vm._v(_vm._s(_vm.searchResults.length) + " lodges match your filters. "),
       _c(
         "a",
         {
@@ -39020,30 +38960,20 @@ var render = function() {
     _vm.searchResults
       ? _c("div", { staticClass: "d-inline container" }, [
           _vm.searchResults.type
-            ? _c(
-                "div",
-                {
-                  staticClass: "filter-block d-sm-inline",
-                  on: { click: _vm.resetType }
-                },
-                [_vm._v(_vm._s(_vm.searchResults.type))]
-              )
+            ? _c("div", { staticClass: "filter-block d-sm-inline" }, [
+                _vm._v(_vm._s(_vm.searchResults.type))
+              ])
             : _vm._e(),
           _vm._v(" "),
           _vm.searchResults.persons
-            ? _c(
-                "div",
-                {
-                  staticClass: "filter-block d-sm-inline",
-                  on: { click: _vm.resetPersons }
-                },
-                [_vm._v(_vm._s(_vm.searchResults.persons) + " persons")]
-              )
+            ? _c("div", { staticClass: "filter-block d-sm-inline" }, [
+                _vm._v(_vm._s(_vm.searchResults.persons) + " persons")
+              ])
             : _vm._e()
         ])
       : _vm._e(),
     _vm._v(" "),
-    _vm.errors.length
+    _vm.errors
       ? _c("div", { staticClass: "alert alert-danger my-5" }, [
           _c(
             "ul",
@@ -39058,7 +38988,7 @@ var render = function() {
     _c(
       "div",
       { staticClass: "searchResultsContainer my-5" },
-      _vm._l(_vm.lodges, function(lodge) {
+      _vm._l(_vm.searchResults, function(lodge) {
         return _c("div", { key: lodge.id, staticClass: "card" }, [
           _c("div", { staticClass: "container" }, [
             _c("div", { staticClass: "row" }, [

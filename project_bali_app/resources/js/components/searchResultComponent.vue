@@ -1,24 +1,23 @@
 <template>
     <div class="container my-5">
 
-        <p>{{lodges.length}} lodges match your filters. <a href="" @click.prevent="clearAllFilters">Clear all filters</a></p>
+        <p>{{searchResults.length}} lodges match your filters. <a href="" @click.prevent="clearAllFilters">Clear all filters</a></p>
 
 
         <div v-if="searchResults" class="d-inline container">
-            <div @click="resetType" v-if="searchResults.type" class="filter-block d-sm-inline">{{searchResults.type}}</div>
-            <div @click="resetPersons" v-if="searchResults.persons" class="filter-block d-sm-inline">{{searchResults.persons}} persons</div>
+            <div  v-if="searchResults.type" class="filter-block d-sm-inline">{{searchResults.type}}</div>
+            <div  v-if="searchResults.persons" class="filter-block d-sm-inline">{{searchResults.persons}} persons</div>
         </div>
 
 
-        <div v-if="errors.length" class="alert alert-danger my-5">
+        <div v-if="errors" class="alert alert-danger my-5">
             <ul>
                 <li v-for="error in errors">{{error}}</li>
             </ul>
         </div>
 
-
         <div class="searchResultsContainer my-5">
-            <div v-for="lodge in lodges" :key="lodge.id" class="card">
+            <div v-for="lodge in searchResults" :key="lodge.id" class="card">
                 <div class="container">
                     <div class="row">
                         <div class="col-md-4 image-col">
@@ -43,71 +42,22 @@
 </template>
 
 
-
 <script>
-    //import serverbus which this component listens to
-    import {serverBus} from "../app";
 
     export default{
+        props: {
+           searchResults: {
+
+           },
+            errors: [],
+        },
         data(){
             return{
-                searchResults: [],
-                lodges: [],
-                errors: [],
+
             }
         },
-        created(){
-            //using the server bus.
-            //We do this here because we want to listen to the event as soon as this component has been
-            //created
-            serverBus.$on('dateSelected', (server) => {
-               this.searchResults = server;
-            });
-            this.getAllLodges();
-        },
-
-
-        computed: {
-            searchData(){
-                return this.searchResults;
-            },
-        },
-
-        //the result will always be 0 when only the persons is filled in.
-        //but in the case a lodgeType IS already selected, and the persons field changes. it should query again.
-        //currently it only seems to reQuery everything on change of lodgeType.
-        watch: {
-            searchData(){
-                this.getSearchResults();
-            }
-        },
-
-
         methods: {
-            getAllLodges(){
-                axios.get('api/all-lodges').then((res) => {
-                    this.lodges = res.data.data;
-                });
-            },
 
-            getSearchResults(){
-                axios.get('api/lodges/' + this.searchResults.type + '/' + this.searchResults.persons).then((res) => {
-                    this.lodges = res.data;
-                });
-            },
-
-            resetType(){
-                this.searchResults.type = '';
-                this.getAllLodges();
-            },
-            resetPersons(){
-                this.searchResults.persons = '';
-                this.getAllLodges();
-            },
-            clearAllFilters(){
-                this.searchResults = [];
-                this.getAllLodges();
-            }
         }
 
     }
