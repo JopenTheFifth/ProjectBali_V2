@@ -5,7 +5,7 @@
         </div>
 
         <div class="searchResult-container">
-            <search-result-component :search-results="lodges"></search-result-component>
+            <search-result-component :search-results="lodges" :search-params="searchResults"></search-result-component>
         </div>
 
     </div>

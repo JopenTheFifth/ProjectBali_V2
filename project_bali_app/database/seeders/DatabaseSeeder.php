@@ -19,9 +19,8 @@ class DatabaseSeeder extends Seeder
              UserRoleSeeder::class,
              UserSeeder::class,
              FakeLodgeSeeder::class,
+             AccommodationResourceSeeder::class,
          ]);
 
-//         Lodge::factory(10)
-//             ->has(\App\Models\LodgeType::factory()->count(1))->create();
     }
 }

@@ -12,10 +12,9 @@
             <div >
                 <label for="lodgeType" class="float-left">Lodge type:</label>
                 <select v-model="searchData.type"  class="form-control" id="lodgeType">
-                    <option disabled value="">Choose a lodge type</option>
+                    <option  class="form-control"  value="all">All</option>
                     <option  class="form-control" v-for="type in lodgeTypes" :value="type.name"  >{{type.name}}</option>
                 </select>
-
             </div>
 
             <div class="form-entry" >
@@ -53,9 +52,10 @@
 
         data(){
             return{
+
                 lodgeTypes : [],
                 searchData: {
-                    type: '',
+                    type: 'all',
                     checkIn: '',
                     checkOut: '',
                     persons: ''
@@ -140,7 +140,6 @@
 
                e.preventDefault();
            }
-
         }
     }
 

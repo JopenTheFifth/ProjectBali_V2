@@ -2135,7 +2135,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
 // use the server bus in the component we want to send data from.
 //     first we need to import it.
 
@@ -2144,7 +2143,7 @@ __webpack_require__.r(__webpack_exports__);
     return {
       lodgeTypes: [],
       searchData: {
-        type: '',
+        type: 'all',
         checkIn: '',
         checkOut: '',
         persons: ''
@@ -2286,6 +2285,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: {
     searchResults: {},
+    searchParams: {},
     errors: []
   },
   data: function data() {
@@ -38722,7 +38722,10 @@ var render = function() {
       { staticClass: "searchResult-container" },
       [
         _c("search-result-component", {
-          attrs: { "search-results": _vm.lodges }
+          attrs: {
+            "search-results": _vm.lodges,
+            "search-params": _vm.searchResults
+          }
         })
       ],
       1
@@ -38830,9 +38833,11 @@ var render = function() {
               }
             },
             [
-              _c("option", { attrs: { disabled: "", value: "" } }, [
-                _vm._v("Choose a lodge type")
-              ]),
+              _c(
+                "option",
+                { staticClass: "form-control", attrs: { value: "all" } },
+                [_vm._v("All")]
+              ),
               _vm._v(" "),
               _vm._l(_vm.lodgeTypes, function(type) {
                 return _c(
@@ -38992,17 +38997,17 @@ var render = function() {
       )
     ]),
     _vm._v(" "),
-    _vm.searchResults
+    _vm.searchParams
       ? _c("div", { staticClass: "d-inline container" }, [
-          _vm.searchResults.type
+          _vm.searchParams.type
             ? _c("div", { staticClass: "filter-block d-sm-inline" }, [
-                _vm._v(_vm._s(_vm.searchResults.type))
+                _vm._v(_vm._s(_vm.searchParams.type))
               ])
             : _vm._e(),
           _vm._v(" "),
-          _vm.searchResults.persons
+          _vm.searchParams.persons
             ? _c("div", { staticClass: "filter-block d-sm-inline" }, [
-                _vm._v(_vm._s(_vm.searchResults.persons) + " persons")
+                _vm._v(_vm._s(_vm.searchParams.persons) + " persons")
               ])
             : _vm._e()
         ])

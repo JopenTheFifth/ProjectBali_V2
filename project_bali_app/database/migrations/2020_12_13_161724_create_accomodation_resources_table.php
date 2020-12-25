@@ -13,7 +13,7 @@ class CreateAccomodationResourcesTable extends Migration
      */
     public function up()
     {
-        Schema::create('accomodation_resources', function (Blueprint $table) {
+        Schema::create('accommodation_resources', function (Blueprint $table) {
             $table->string('resource_name')->primary();
             $table->string('icon_path')->nullable()->default('defaultIcon.svg');
         });
@@ -26,6 +26,6 @@ class CreateAccomodationResourcesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('accomodation_resources');
+        Schema::dropIfExists('accommodation_resources');
     }
 }

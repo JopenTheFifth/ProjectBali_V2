@@ -4,9 +4,9 @@
         <p><strong>{{searchResults.length}} lodges </strong> match your filters. <a href="" @click.prevent="clearAllFilters">Clear all filters</a></p>
 
 
-        <div v-if="searchResults" class="d-inline container">
-            <div  v-if="searchResults.type" class="filter-block d-sm-inline">{{searchResults.type}}</div>
-            <div  v-if="searchResults.persons" class="filter-block d-sm-inline">{{searchResults.persons}} persons</div>
+        <div v-if="searchParams" class="d-inline container">
+            <div  v-if="searchParams.type" class="filter-block d-sm-inline">{{searchParams.type}}</div>
+            <div  v-if="searchParams.persons" class="filter-block d-sm-inline">{{searchParams.persons}} persons</div>
         </div>
 
 
@@ -49,6 +49,9 @@
            searchResults: {
 
            },
+            searchParams: {
+
+            },
             errors: [],
         },
         data(){
