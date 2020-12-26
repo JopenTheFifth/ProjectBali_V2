@@ -23,9 +23,10 @@ class LodgeController extends Controller
 
 
     public function lodgesWithType($typeName, $max_person = null){
-        
+
         if($typeName == 'all'){
-            $lodges = \App\Models\Lodge::with('lodgeType')->get();
+            $lodges = \App\Models\Lodge::with('lodgeType')->with('accommodationResources')->
+                with('lodgeReviews')->get();
 
             if(!empty($max_person)){
                return $lodges->where('max_person', '<=', $max_person);
@@ -35,7 +36,7 @@ class LodgeController extends Controller
 
         $lodges = \App\Models\Lodge::query()->whereHas('lodgeType', function(Builder $query) use($typeName){
             $query->where('name', $typeName);
-        })->with('lodgeType')->get();
+        })->with('lodgeType')->with('accommodationResources')->with('lodgeReviews')->get();
 
         if(!empty($max_person)){
            $lodges = $lodges->where('max_person',  '<=' , $max_person);

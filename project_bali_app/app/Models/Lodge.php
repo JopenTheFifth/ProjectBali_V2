@@ -16,11 +16,11 @@ class Lodge extends Model
 
     //relations
 
-    public function reviews(){
+    public function lodgeReviews(){
         return $this->hasMany(LodgeReview::class);
     }
 
-    public function images(){
+    public function lodgeImages(){
         return $this->hasMany(LodgeImage::class);
     }
 
@@ -28,12 +28,11 @@ class Lodge extends Model
         return $this->hasMany(Booking::class);
     }
 
-    public function resources(){
-        return $this->belongsToMany(AccomodationResource::class);
+    public function accommodationResources(){
+        return $this->belongsToMany(AccommodationResource::class);
     }
 
     public function lodgeType(){
         return $this->belongsTo(LodgeType::class);
     }
-
 }

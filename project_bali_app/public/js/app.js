@@ -2282,6 +2282,12 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: {
     searchResults: {},
@@ -2290,7 +2296,8 @@ __webpack_require__.r(__webpack_exports__);
   },
   data: function data() {
     return {};
-  }
+  },
+  computed: {}
 });
 
 /***/ }),
@@ -39075,7 +39082,16 @@ var render = function() {
               _vm._v(" "),
               _c("div", { staticClass: "col-lg-4" }, [
                 _c("div", { staticClass: "card-description" }, [
-                  _c("p", [_vm._v("Display rating")]),
+                  lodge.lodge_review.length
+                    ? _c("p", [
+                        _vm._v(
+                          "rating:" + _vm._s(lodge.lodge_review.rating) + " "
+                        )
+                      ])
+                    : _c("p", [
+                        _c("strong", [_vm._v("rating:")]),
+                        _vm._v(" not found ")
+                      ]),
                   _vm._v(" "),
                   lodge.lodge_type.description
                     ? _c("p", [_vm._v(_vm._s(lodge.lodge_type.description))])

@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\AccommodationResource;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 
@@ -26,5 +27,6 @@ class AccommodationResourceSeeder extends Seeder
             'resource_name' => 'pool',
             'icon_path' => 'pool.jpg'
         ]);
+//        AccommodationResource::factory()->count(3)->create();
     }
 }

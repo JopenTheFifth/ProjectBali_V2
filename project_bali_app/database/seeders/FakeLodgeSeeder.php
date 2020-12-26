@@ -2,7 +2,9 @@
 
 namespace Database\Seeders;
 
+use App\Models\AccommodationResource;
 use App\Models\Lodge;
+use App\Models\LodgeReview;
 use Illuminate\Database\Seeder;
 
 class FakeLodgeSeeder extends Seeder
@@ -14,7 +16,10 @@ class FakeLodgeSeeder extends Seeder
      */
     public function run()
     {
-        Lodge::factory(30)
-            ->has(\App\Models\LodgeType::factory()->count(1))->create();
+        $roles = AccommodationResource::all()->random(2);
+        $reviews = LodgeReview::all()->where('user_id', 1);
+        Lodge::factory(50)->has(\App\Models\LodgeType::factory()->count(1))
+            ->hasAttached($roles)->
+            hasAttached($reviews)->create();
     }
 }

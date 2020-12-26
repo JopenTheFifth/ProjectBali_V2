@@ -21,7 +21,9 @@ class LodgeResource extends JsonResource
             'surface' => $this->surface,
             'price_per_night' => $this->price_per_night,
             'lodge_type_id' => $this->lodge_type_id,
-            'lodge_type' => (new LodgeTypeResource($this->lodgeType))
+            'lodge_type' => (new LodgeTypeResource($this->lodgeType)),
+            'lodge_resource' => (new LodgeResourceResource($this->accommodationResources)),
+            'lodge_review' => (new LodgeReviewResource($this->lodgeReviews)),
         ];
     }
 }

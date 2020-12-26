@@ -30,7 +30,13 @@
                         </div>
                         <div class="col-lg-4">
                             <div class="card-description">
-                                <p>Display rating</p>
+                                
+                                <p v-if="lodge.lodge_review.length">rating:{{lodge.lodge_review.rating}} </p>
+
+
+                                <p v-else="lodge.lodge_review.length"><strong>rating:</strong> not found </p>
+
+
                                 <p v-if="lodge.lodge_type.description">{{lodge.lodge_type.description}}</p>
                             </div>
                         </div>
@@ -58,6 +64,11 @@
             return{
             }
         },
+
+        computed:{
+
+        }
+
     }
 </script>
 
