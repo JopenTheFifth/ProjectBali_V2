@@ -2282,12 +2282,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: {
     searchResults: {},
@@ -2295,9 +2289,18 @@ __webpack_require__.r(__webpack_exports__);
     errors: []
   },
   data: function data() {
-    return {};
+    return {
+      lodgeReviews: []
+    };
   },
-  computed: {}
+  computed: {
+    onSearchResultChange: function onSearchResultChange() {
+      return this.searchResults;
+    }
+  },
+  watch: {
+    onSearchResultChange: function onSearchResultChange() {}
+  }
 });
 
 /***/ }),
@@ -39080,24 +39083,7 @@ var render = function() {
                 ]
               ),
               _vm._v(" "),
-              _c("div", { staticClass: "col-lg-4" }, [
-                _c("div", { staticClass: "card-description" }, [
-                  lodge.lodge_review.length
-                    ? _c("p", [
-                        _vm._v(
-                          "rating:" + _vm._s(lodge.lodge_review.rating) + " "
-                        )
-                      ])
-                    : _c("p", [
-                        _c("strong", [_vm._v("rating:")]),
-                        _vm._v(" not found ")
-                      ]),
-                  _vm._v(" "),
-                  lodge.lodge_type.description
-                    ? _c("p", [_vm._v(_vm._s(lodge.lodge_type.description))])
-                    : _vm._e()
-                ])
-              ])
+              _vm._m(1, true)
             ])
           ])
         ])
@@ -39116,6 +39102,14 @@ var staticRenderFns = [
         staticClass: "card-img",
         attrs: { src: "images/Hero_img4.jpg" }
       })
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "col-lg-4" }, [
+      _c("div", { staticClass: "card-description" })
     ])
   }
 ]
