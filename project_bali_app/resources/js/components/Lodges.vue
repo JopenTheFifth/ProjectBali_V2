@@ -44,7 +44,6 @@
         methods: {
             getAllLodges(){
                 axios.get('api/all-lodges').then((res) => {
-                    this.searchResults = res.data.data;
                     this.lodges = res.data.data;
                 });
             },

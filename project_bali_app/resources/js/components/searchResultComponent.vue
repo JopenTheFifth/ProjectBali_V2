@@ -26,12 +26,13 @@
                         <div class="col-lg-4" style="text-align: center;">
                             <p class="title my-5 ">{{lodge.name}}</p>
                             <h3 class="my-5 ">{{lodge.price_per_night}}</h3>
-                            <button @click="$router.push({name: 'Booking', params: {lodge: lodge}})" class="my-2 btn btn-primary" style="background-color:#E1C97C; color: black; border: none; width: 50%;">Book</button>
+                            <button @click="$router.push({name: 'Booking', params: {lodge: lodge, bookingData: searchParams}})" class="my-2 btn btn-primary" style="background-color:#E1C97C; color: black; border: none; width: 50%;">Book</button>
                         </div>
                         <div class="col-lg-4">
                             <div class="card-description">
-
-
+                                <p v-if="lodge.lodge_reviews">{{lodge.lodge_reviews.length}} reviews</p>
+<!--                                <p v-for="item in lodge['lodge_reviews']" v-if="lodge['lodge_reviews']">{{item.rating}}</p>-->
+                                <p v-if="lodge.lodge_type">{{lodge.lodge_type.description}}</p>
                             </div>
                         </div>
                     </div>
@@ -56,7 +57,7 @@
         },
         data(){
             return{
-                lodgeReviews : [],
+
             }
         },
         computed: {
