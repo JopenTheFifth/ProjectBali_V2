@@ -1949,6 +1949,10 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: {
     lodge: {},
@@ -6790,7 +6794,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "\n#sidebar[data-v-28bb4584]{\n    float: right;\n    width: 420px;\n    background-color: black;\n}\n#sidebarDetailBox[data-v-28bb4584]{\n    background-color: white;\n    border: 1px solid gray;\n    padding: 0.5rem;\n}\n.card[data-v-28bb4584]{\n    background-color: #E1C97C !important;\n    padding: 0.7rem !important;\n}\n.card-img-top[data-v-28bb4584]{\n    width: 100%;\n}\nhr[data-v-28bb4584]{\n    height: 0.1px;\n    width: 100%;\n}\n", ""]);
+exports.push([module.i, "\n#sidebar[data-v-28bb4584]{\n    width: 320px;\n    background-color: black;\n}\n#sidebarDetailBox[data-v-28bb4584]{\n    background-color: white;\n    border: 1px solid gray;\n    padding: 0.5rem;\n}\n.card[data-v-28bb4584]{\n    background-color: #E1C97C !important;\n    padding: 0.7rem !important;\n}\n.card-img-top[data-v-28bb4584]{\n    width: 100%;\n}\nhr[data-v-28bb4584]{\n    height: 0.1px;\n    width: 100%;\n}\n.form-card[data-v-28bb4584]{\n    border: 1px solid #707070;\n}\n@media (max-width: 1400px) {\n#sidebar[data-v-28bb4584]{\n        visibility: hidden;\n}\n}\n", ""]);
 
 // exports
 
@@ -38684,77 +38688,85 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", { staticClass: "container-fluid" }, [
-    _c("div", { staticClass: "card", attrs: { id: "sidebar" } }, [
-      _c("img", {
-        staticClass: "card-img-top",
-        attrs: { src: "/images/main_hero_darkened.jpg" }
-      }),
-      _vm._v(" "),
-      _vm.lodge
-        ? _c("h5", { staticClass: "card-title my-4" }, [
-            _vm._v(_vm._s(_vm.lodge.name))
-          ])
-        : _vm._e(),
-      _vm._v(" "),
-      _vm.lodge
-        ? _c("p", [_vm._v(_vm._s(_vm.lodge.lodge_type.description))])
-        : _vm._e(),
-      _vm._v(" "),
-      _c("div", { attrs: { id: "sidebarDetailBox" } }, [
-        _c("div", { staticClass: "my-4" }, [
-          _vm.bookingData && _vm.bookingData.checkIn
-            ? _c("p", [
-                _vm._v("Check in: "),
-                _c("strong", [_vm._v(_vm._s(_vm.bookingData.checkIn))])
-              ])
-            : _c("p", [
-                _vm._v("Check in: "),
-                _c("strong", [_vm._v("No check-in selected!")])
-              ]),
+    _c("div", { staticClass: "row" }, [
+      _c(
+        "div",
+        { staticClass: "card ml-auto mr-3", attrs: { id: "sidebar" } },
+        [
+          _c("img", {
+            staticClass: "card-img-top",
+            attrs: { src: "/images/main_hero_darkened.jpg" }
+          }),
           _vm._v(" "),
-          _vm.bookingData && _vm.bookingData.checkOut
-            ? _c("p", [
-                _vm._v("Check out: "),
-                _c("strong", [_vm._v(_vm._s(_vm.bookingData.checkOut))])
-              ])
-            : _c("p", [
-                _vm._v("Check in: "),
-                _c("strong", [_vm._v("No check-out selected! ")])
-              ])
-        ]),
-        _vm._v(" "),
-        _c("hr"),
-        _vm._v(" "),
-        _c("div", { staticClass: "my-4" }, [
-          _vm.lodge && _vm.lodge.price_per_night
-            ? _c("p", [
-                _vm._v("Average price per night: "),
-                _c("strong", [_vm._v(" $" + _vm._s(_vm.lodge.price_per_night))])
+          _vm.lodge
+            ? _c("h5", { staticClass: "card-title my-4" }, [
+                _vm._v(_vm._s(_vm.lodge.name))
               ])
             : _vm._e(),
           _vm._v(" "),
-          _vm._m(0)
-        ]),
-        _vm._v(" "),
-        _c("hr"),
-        _vm._v(" "),
-        _vm._m(1)
-      ]),
-      _vm._v(" "),
-      _vm.expectedData
-        ? _c(
-            "div",
-            { staticClass: "py-5" },
-            _vm._l(_vm.expectedData, function(item, key, index) {
-              return _c("div", [
-                item === ""
-                  ? _c("p", [_vm._v(_vm._s(key) + " is not selected yet!")])
-                  : _vm._e()
-              ])
-            }),
-            0
-          )
-        : _vm._e()
+          _vm.lodge
+            ? _c("p", [_vm._v(_vm._s(_vm.lodge.lodge_type.description))])
+            : _vm._e(),
+          _vm._v(" "),
+          _c("div", { attrs: { id: "sidebarDetailBox" } }, [
+            _c("div", { staticClass: "my-4" }, [
+              _vm.bookingData && _vm.bookingData.checkIn
+                ? _c("p", [
+                    _vm._v("Check in: "),
+                    _c("strong", [_vm._v(_vm._s(_vm.bookingData.checkIn))])
+                  ])
+                : _c("p", [
+                    _vm._v("Check in: "),
+                    _c("strong", [_vm._v("No check-in selected!")])
+                  ]),
+              _vm._v(" "),
+              _vm.bookingData && _vm.bookingData.checkOut
+                ? _c("p", [
+                    _vm._v("Check out: "),
+                    _c("strong", [_vm._v(_vm._s(_vm.bookingData.checkOut))])
+                  ])
+                : _c("p", [
+                    _vm._v("Check in: "),
+                    _c("strong", [_vm._v("No check-out selected! ")])
+                  ])
+            ]),
+            _vm._v(" "),
+            _c("hr"),
+            _vm._v(" "),
+            _c("div", { staticClass: "my-4" }, [
+              _vm.lodge && _vm.lodge.price_per_night
+                ? _c("p", [
+                    _vm._v("Average price per night: "),
+                    _c("strong", [
+                      _vm._v(" $" + _vm._s(_vm.lodge.price_per_night))
+                    ])
+                  ])
+                : _vm._e(),
+              _vm._v(" "),
+              _vm._m(0)
+            ]),
+            _vm._v(" "),
+            _c("hr"),
+            _vm._v(" "),
+            _vm._m(1)
+          ]),
+          _vm._v(" "),
+          _vm.expectedData
+            ? _c(
+                "div",
+                { staticClass: "py-5" },
+                _vm._l(_vm.expectedData, function(item, key, index) {
+                  return _c("div", [
+                    item === ""
+                      ? _c("p", [_vm._v(_vm._s(key) + " is not selected yet!")])
+                      : _vm._e()
+                  ])
+                }),
+                0
+              )
+            : _vm._e()
+        ]
+      )
     ])
   ])
 }

@@ -1,40 +1,44 @@
 <template>
     <div class="container-fluid">
-        <div id="sidebar" class="card">
-            <img  src="/images/main_hero_darkened.jpg" class="card-img-top">
+        <div class="row">
 
-            <h5 v-if="lodge" class="card-title my-4">{{lodge.name}}</h5>
+            <div id="sidebar" class="card ml-auto mr-3">
+                <img  src="/images/main_hero_darkened.jpg" class="card-img-top">
 
-            <p v-if="lodge">{{lodge.lodge_type.description}}</p>
+                <h5 v-if="lodge" class="card-title my-4">{{lodge.name}}</h5>
 
-            <div id="sidebarDetailBox">
-                <div class="my-4">
-                    <p v-if="bookingData && bookingData.checkIn">Check in: <strong>{{bookingData.checkIn}}</strong></p>
-                    <p v-else>Check in: <strong>No check-in selected!</strong></p>
+                <p v-if="lodge">{{lodge.lodge_type.description}}</p>
 
-                    <p v-if="bookingData && bookingData.checkOut">Check out: <strong>{{bookingData.checkOut}}</strong></p>
-                    <p v-else>Check in: <strong>No check-out selected! </strong></p>
+                <div id="sidebarDetailBox">
+                    <div class="my-4">
+                        <p v-if="bookingData && bookingData.checkIn">Check in: <strong>{{bookingData.checkIn}}</strong></p>
+                        <p v-else>Check in: <strong>No check-in selected!</strong></p>
+
+                        <p v-if="bookingData && bookingData.checkOut">Check out: <strong>{{bookingData.checkOut}}</strong></p>
+                        <p v-else>Check in: <strong>No check-out selected! </strong></p>
+                    </div>
+                    <hr />
+
+                    <div class="my-4">
+                        <p v-if="lodge && lodge.price_per_night">Average price per night: <strong> ${{lodge.price_per_night}}</strong></p>
+                        <p>Duration: <strong>5 days</strong></p>
+
+                    </div>
+                    <hr />
+                    <div class="my-4">
+                        <p>Total price: <strong> $5232.34</strong></p>
+                    </div>
                 </div>
-                <hr />
 
-                <div class="my-4">
-                    <p v-if="lodge && lodge.price_per_night">Average price per night: <strong> ${{lodge.price_per_night}}</strong></p>
-                    <p>Duration: <strong>5 days</strong></p>
+                <div class="py-5" v-if="expectedData">
+                    <div v-for="(item, key, index) in expectedData">
+                        <p v-if="item === ''">{{key}} is not selected yet!</p>
+                    </div>
+                </div>
 
-                </div>
-                <hr />
-                <div class="my-4">
-                    <p>Total price: <strong> $5232.34</strong></p>
-                </div>
             </div>
-
-          <div class="py-5" v-if="expectedData">
-              <div v-for="(item, key, index) in expectedData">
-                  <p v-if="item === ''">{{key}} is not selected yet!</p>
-              </div>
-          </div>
-
         </div>
+
     </div>
 </template>
 
@@ -73,8 +77,7 @@
 
 <style scoped>
     #sidebar{
-        float: right;
-        width: 420px;
+        width: 320px;
         background-color: black;
     }
     #sidebarDetailBox{
@@ -94,5 +97,16 @@
     hr{
         height: 0.1px;
         width: 100%;
+    }
+
+    .form-card{
+        border: 1px solid #707070;
+    }
+
+
+    @media (max-width: 1400px) {
+        #sidebar{
+            visibility: hidden;
+        }
     }
 </style>
