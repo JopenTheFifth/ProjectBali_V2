@@ -19,6 +19,9 @@
     <!-- Styles -->
     <link href="<?php echo e(asset('css/app.css')); ?>" rel="stylesheet">
     <link href="<?php echo e(asset('css/all.css')); ?>" rel="stylesheet">
+
+
+
 </head>
 <body style="background-color: #F1F1F1;">
     <div id="app">

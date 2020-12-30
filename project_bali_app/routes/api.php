@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\LodgeController;
+use App\Http\Controllers\UserController;
 use App\Models\Lodge;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -35,4 +36,4 @@ Route::get('/lodges/{lodge}/type', function(Lodge $lodge){
 
 
 Route::get('/lodges/{type}/{max_person?}', [LodgeController::class, 'lodgesWithType']);
-
+Route::middleware('auth')->get('/me', [UserController::class, 'getLoggedInUser']);

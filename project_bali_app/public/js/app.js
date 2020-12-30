@@ -1969,6 +1969,20 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: {
     lodge: {},
@@ -1981,7 +1995,29 @@ __webpack_require__.r(__webpack_exports__);
         checkOut: '',
         persons: '',
         type: ''
-      }
+      } // testData: {
+      //     checkInDate: {
+      //         type: Date,
+      //         default: null,
+      //         required: true
+      //     },
+      //     checkOutDate: {
+      //         type: Date,
+      //         default: null,
+      //         required: true
+      //     },
+      //     persons: {
+      //         type: Number,
+      //         default: null,
+      //         required: true,
+      //     },
+      //     lodgeType: {
+      //         type: String,
+      //         default: null,
+      //         required: true,
+      //     }
+      // }
+
     };
   },
   mounted: function mounted() {
@@ -38719,7 +38755,7 @@ var render = function() {
       _vm.lodge
         ? _c("div", { staticClass: "formBox my-5" }, [
             _c("h5", { staticClass: "p-3 title" }, [
-              _vm._v("Step 2 - Accommodation details")
+              _vm._v("Step 2 - Booking details")
             ]),
             _vm._v(" "),
             _c("hr", { staticClass: "formHr" }),
@@ -38746,28 +38782,35 @@ var render = function() {
           ])
         : _vm._e(),
       _vm._v(" "),
-      _c(
-        "div",
-        { staticClass: "formBox my-5" },
-        [
-          _vm.expectedData
-            ? _c("h5", { staticClass: "p-3 title" }, [
-                _vm._v("Warning: Some details have not been selected yet")
-              ])
-            : _vm._e(),
-          _vm._v(" "),
-          _c("hr", { staticClass: "formHr" }),
-          _vm._v(" "),
-          _vm._l(_vm.expectedData, function(item, key, index) {
-            return _c("div", [
-              item === ""
-                ? _c("p", [_vm._v(_vm._s(key) + " is not selected yet!")])
-                : _vm._e()
+      _c("div", { staticClass: "formBox my-5" }, [
+        _vm.expectedData
+          ? _c("h5", { staticClass: "p-3 title" }, [
+              _vm._v("Warning: Some details have not been selected yet")
             ])
-          })
-        ],
-        2
-      )
+          : _vm._e(),
+        _vm._v(" "),
+        _c("hr", { staticClass: "formHr" }),
+        _vm._v(" "),
+        !_vm.expectedData.checkIn
+          ? _c("div", { staticClass: "form-group" }, [
+              _c("label", { attrs: { for: "checkIn" } }, [
+                _vm._v("Select a check-in date")
+              ]),
+              _vm._v(" "),
+              _c("input", { attrs: { id: "checkIn", type: "date" } })
+            ])
+          : _vm._e(),
+        _vm._v(" "),
+        !_vm.expectedData.checkOut
+          ? _c("div", { staticClass: "form-group" }, [
+              _c("label", { attrs: { for: "checkOut" } }, [
+                _vm._v("Select a check-out date")
+              ]),
+              _vm._v(" "),
+              _c("input", { attrs: { id: "checkOut", type: "date" } })
+            ])
+          : _vm._e()
+      ])
     ])
   ])
 }
@@ -38788,7 +38831,7 @@ var staticRenderFns = [
         _vm._v(" "),
         _c("input", {
           staticClass: "form-control",
-          attrs: { type: "text", id: "firstName", value: "{{}}" }
+          attrs: { type: "text", id: "firstName" }
         })
       ]),
       _vm._v(" "),

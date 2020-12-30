@@ -11,7 +11,7 @@
                 <div class="form-group">
 
                     <label for="firstName">First name</label>
-                    <input type="text" id="firstName" class="form-control" value="{{}}">
+                    <input type="text" id="firstName" class="form-control">
                 </div>
 
                 <div class="form-group">
@@ -29,12 +29,13 @@
                     <label for="number">Phone number</label>
                     <input type="number" id="number" class="form-control">
                 </div>
+
             </div>
 
 
 
             <div v-if="lodge" class="formBox my-5">
-                <h5 class="p-3 title">Step 2 - Accommodation details</h5>
+                <h5 class="p-3 title">Step 2 - Booking details</h5>
                 <hr class="formHr" />
 
                 <div v-if="lodge.accommodation_resources">
@@ -43,18 +44,31 @@
                       <li v-for="resource in lodge.accommodation_resources">{{resource.resource_name}}</li>
                   </ul>
                 </div>
+
+
+
             </div>
 
 
             <div class="formBox my-5">
                 <h5 v-if="expectedData" class="p-3 title">Warning: Some details have not been selected yet</h5>
                 <hr class="formHr" />
-                <div v-for="(item, key, index) in expectedData">
-                    <p v-if="item === ''">{{key}} is not selected yet!</p>
+
+                <div v-if="!expectedData.checkIn" class="form-group">
+                    <label for="checkIn">Select a check-in date</label>
+                    <input id="checkIn" type="date" >
                 </div>
+
+                <div v-if="!expectedData.checkOut" class="form-group">
+                    <label for="checkOut">Select a check-out date</label>
+                    <input id="checkOut"  type="date" >
+                </div>
+
             </div>
 
         </form>
+
+
     </div>
 </template>
 
@@ -77,6 +91,29 @@
                     persons: '',
                     type : '',
                 },
+
+                // testData: {
+                //     checkInDate: {
+                //         type: Date,
+                //         default: null,
+                //         required: true
+                //     },
+                //     checkOutDate: {
+                //         type: Date,
+                //         default: null,
+                //         required: true
+                //     },
+                //     persons: {
+                //         type: Number,
+                //         default: null,
+                //         required: true,
+                //     },
+                //     lodgeType: {
+                //         type: String,
+                //         default: null,
+                //         required: true,
+                //     }
+                // }
             }
         },
         mounted(){
