@@ -1953,6 +1953,22 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: {
     lodge: {},
@@ -1973,7 +1989,16 @@ __webpack_require__.r(__webpack_exports__);
       this.expectedData = this.bookingData;
     }
   },
-  computed: {}
+  computed: {},
+  methods: {// valueMissing: function(){
+    //     for(let i = 0; i < 4; i++){
+    //         if(this.expectedData[i] === ''){
+    //
+    //         }
+    //     }
+    //     return null;
+    // }
+  }
 });
 
 /***/ }),
@@ -6794,7 +6819,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "\n#sidebar[data-v-28bb4584]{\n    width: 320px;\n    background-color: black;\n}\n#sidebarDetailBox[data-v-28bb4584]{\n    background-color: white;\n    border: 1px solid gray;\n    padding: 0.5rem;\n}\n.card[data-v-28bb4584]{\n    background-color: #E1C97C !important;\n    padding: 0.7rem !important;\n}\n.card-img-top[data-v-28bb4584]{\n    width: 100%;\n}\nhr[data-v-28bb4584]{\n    height: 0.1px;\n    width: 100%;\n}\n.form-card[data-v-28bb4584]{\n    border: 1px solid #707070;\n}\n@media (max-width: 1400px) {\n#sidebar[data-v-28bb4584]{\n        visibility: hidden;\n}\n}\n", ""]);
+exports.push([module.i, "\n#confirmBookingForm[data-v-28bb4584]{\n}\n.formHr[data-v-28bb4584]{\n    width: 100%;\n    background-color: #707070;\n    height: 0.1px;\n    margin: 0;\n}\n.form-group[data-v-28bb4584]{\n    margin: auto;\n    padding: 1rem;\n}\nlabel[data-v-28bb4584]{\n    font-weight: bold;\n}\n.title[data-v-28bb4584]{\n    font-weight: bold;\n}\n.formBox[data-v-28bb4584]{\n    border: 1px solid #707070;\n}\nul[data-v-28bb4584]{\n    list-style-type: none;\n    margin: 2rem;\n    padding: 0;\n    overflow: hidden;\n\n    /*border: 0.5px solid gray;*/\n    /*border-radius: 1rem;*/\n}\nli[data-v-28bb4584]{\n    float: left;\n    display: block;\n    color: green;\n    text-align: center;\n    padding: 10px;\n}\n\n\n\n", ""]);
 
 // exports
 
@@ -38687,85 +38712,61 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "container-fluid" }, [
-    _c("div", { staticClass: "row" }, [
+  return _c("div", { staticClass: "container", attrs: { id: "wrapper" } }, [
+    _c("form", { attrs: { id: "confirmBookingForm" } }, [
+      _vm._m(0),
+      _vm._v(" "),
+      _vm.lodge
+        ? _c("div", { staticClass: "formBox my-5" }, [
+            _c("h5", { staticClass: "p-3 title" }, [
+              _vm._v("Step 2 - Accommodation details")
+            ]),
+            _vm._v(" "),
+            _c("hr", { staticClass: "formHr" }),
+            _vm._v(" "),
+            _vm.lodge.accommodation_resources
+              ? _c("div", [
+                  _c(
+                    "ul",
+                    [
+                      _vm._m(1),
+                      _vm._v(" "),
+                      _vm._l(_vm.lodge.accommodation_resources, function(
+                        resource
+                      ) {
+                        return _c("li", [
+                          _vm._v(_vm._s(resource.resource_name))
+                        ])
+                      })
+                    ],
+                    2
+                  )
+                ])
+              : _vm._e()
+          ])
+        : _vm._e(),
+      _vm._v(" "),
       _c(
         "div",
-        { staticClass: "card ml-auto mr-3", attrs: { id: "sidebar" } },
+        { staticClass: "formBox my-5" },
         [
-          _c("img", {
-            staticClass: "card-img-top",
-            attrs: { src: "/images/main_hero_darkened.jpg" }
-          }),
-          _vm._v(" "),
-          _vm.lodge
-            ? _c("h5", { staticClass: "card-title my-4" }, [
-                _vm._v(_vm._s(_vm.lodge.name))
+          _vm.expectedData
+            ? _c("h5", { staticClass: "p-3 title" }, [
+                _vm._v("Warning: Some details have not been selected yet")
               ])
             : _vm._e(),
           _vm._v(" "),
-          _vm.lodge
-            ? _c("p", [_vm._v(_vm._s(_vm.lodge.lodge_type.description))])
-            : _vm._e(),
+          _c("hr", { staticClass: "formHr" }),
           _vm._v(" "),
-          _c("div", { attrs: { id: "sidebarDetailBox" } }, [
-            _c("div", { staticClass: "my-4" }, [
-              _vm.bookingData && _vm.bookingData.checkIn
-                ? _c("p", [
-                    _vm._v("Check in: "),
-                    _c("strong", [_vm._v(_vm._s(_vm.bookingData.checkIn))])
-                  ])
-                : _c("p", [
-                    _vm._v("Check in: "),
-                    _c("strong", [_vm._v("No check-in selected!")])
-                  ]),
-              _vm._v(" "),
-              _vm.bookingData && _vm.bookingData.checkOut
-                ? _c("p", [
-                    _vm._v("Check out: "),
-                    _c("strong", [_vm._v(_vm._s(_vm.bookingData.checkOut))])
-                  ])
-                : _c("p", [
-                    _vm._v("Check in: "),
-                    _c("strong", [_vm._v("No check-out selected! ")])
-                  ])
-            ]),
-            _vm._v(" "),
-            _c("hr"),
-            _vm._v(" "),
-            _c("div", { staticClass: "my-4" }, [
-              _vm.lodge && _vm.lodge.price_per_night
-                ? _c("p", [
-                    _vm._v("Average price per night: "),
-                    _c("strong", [
-                      _vm._v(" $" + _vm._s(_vm.lodge.price_per_night))
-                    ])
-                  ])
-                : _vm._e(),
-              _vm._v(" "),
-              _vm._m(0)
-            ]),
-            _vm._v(" "),
-            _c("hr"),
-            _vm._v(" "),
-            _vm._m(1)
-          ]),
-          _vm._v(" "),
-          _vm.expectedData
-            ? _c(
-                "div",
-                { staticClass: "py-5" },
-                _vm._l(_vm.expectedData, function(item, key, index) {
-                  return _c("div", [
-                    item === ""
-                      ? _c("p", [_vm._v(_vm._s(key) + " is not selected yet!")])
-                      : _vm._e()
-                  ])
-                }),
-                0
-              )
-            : _vm._e()
-        ]
+          _vm._l(_vm.expectedData, function(item, key, index) {
+            return _c("div", [
+              item === ""
+                ? _c("p", [_vm._v(_vm._s(key) + " is not selected yet!")])
+                : _vm._e()
+            ])
+          })
+        ],
+        2
       )
     ])
   ])
@@ -38775,14 +38776,56 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("p", [_vm._v("Duration: "), _c("strong", [_vm._v("5 days")])])
+    return _c("div", { staticClass: "formBox" }, [
+      _c("h5", { staticClass: "p-3 title" }, [
+        _vm._v("Step 1 - Personal information")
+      ]),
+      _vm._v(" "),
+      _c("hr", { staticClass: "formHr" }),
+      _vm._v(" "),
+      _c("div", { staticClass: "form-group" }, [
+        _c("label", { attrs: { for: "firstName" } }, [_vm._v("First name")]),
+        _vm._v(" "),
+        _c("input", {
+          staticClass: "form-control",
+          attrs: { type: "text", id: "firstName", value: "{{}}" }
+        })
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "form-group" }, [
+        _c("label", { attrs: { for: "lastName" } }, [_vm._v("Last name")]),
+        _vm._v(" "),
+        _c("input", {
+          staticClass: "form-control",
+          attrs: { type: "text", id: "lastName" }
+        })
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "form-group" }, [
+        _c("label", { attrs: { for: "email" } }, [_vm._v("Email address")]),
+        _vm._v(" "),
+        _c("input", {
+          staticClass: "form-control",
+          attrs: { type: "email", id: "email" }
+        })
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "form-group" }, [
+        _c("label", { attrs: { for: "number" } }, [_vm._v("Phone number")]),
+        _vm._v(" "),
+        _c("input", {
+          staticClass: "form-control",
+          attrs: { type: "number", id: "number" }
+        })
+      ])
+    ])
   },
   function() {
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "my-4" }, [
-      _c("p", [_vm._v("Total price: "), _c("strong", [_vm._v(" $5232.34")])])
+    return _c("li", { staticStyle: { color: "black !important" } }, [
+      _c("p", [_c("strong", [_vm._v("Unit also includes:")])])
     ])
   }
 ]

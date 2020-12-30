@@ -1,44 +1,60 @@
 <template>
-    <div class="container-fluid">
-        <div class="row">
+    <div id="wrapper" class="container">
 
-            <div id="sidebar" class="card ml-auto mr-3">
-                <img  src="/images/main_hero_darkened.jpg" class="card-img-top">
+        <form id="confirmBookingForm">
 
-                <h5 v-if="lodge" class="card-title my-4">{{lodge.name}}</h5>
 
-                <p v-if="lodge">{{lodge.lodge_type.description}}</p>
+            <div class="formBox">
+                <h5 class="p-3 title">Step 1 - Personal information</h5>
+                <hr class="formHr" />
 
-                <div id="sidebarDetailBox">
-                    <div class="my-4">
-                        <p v-if="bookingData && bookingData.checkIn">Check in: <strong>{{bookingData.checkIn}}</strong></p>
-                        <p v-else>Check in: <strong>No check-in selected!</strong></p>
+                <div class="form-group">
 
-                        <p v-if="bookingData && bookingData.checkOut">Check out: <strong>{{bookingData.checkOut}}</strong></p>
-                        <p v-else>Check in: <strong>No check-out selected! </strong></p>
-                    </div>
-                    <hr />
-
-                    <div class="my-4">
-                        <p v-if="lodge && lodge.price_per_night">Average price per night: <strong> ${{lodge.price_per_night}}</strong></p>
-                        <p>Duration: <strong>5 days</strong></p>
-
-                    </div>
-                    <hr />
-                    <div class="my-4">
-                        <p>Total price: <strong> $5232.34</strong></p>
-                    </div>
+                    <label for="firstName">First name</label>
+                    <input type="text" id="firstName" class="form-control" value="{{}}">
                 </div>
 
-                <div class="py-5" v-if="expectedData">
-                    <div v-for="(item, key, index) in expectedData">
-                        <p v-if="item === ''">{{key}} is not selected yet!</p>
-                    </div>
+                <div class="form-group">
+
+                    <label for="lastName">Last name</label>
+                    <input type="text" id="lastName" class="form-control">
                 </div>
 
+                <div class="form-group">
+                    <label for="email">Email address</label>
+                    <input type="email" id="email" class="form-control">
+                </div>
+
+                <div class="form-group">
+                    <label for="number">Phone number</label>
+                    <input type="number" id="number" class="form-control">
+                </div>
             </div>
-        </div>
 
+
+
+            <div v-if="lodge" class="formBox my-5">
+                <h5 class="p-3 title">Step 2 - Accommodation details</h5>
+                <hr class="formHr" />
+
+                <div v-if="lodge.accommodation_resources">
+                  <ul>
+                      <li style="color: black !important;"><p><strong>Unit also includes:</strong></p></li>
+                      <li v-for="resource in lodge.accommodation_resources">{{resource.resource_name}}</li>
+                  </ul>
+                </div>
+            </div>
+
+
+            <div class="formBox my-5">
+                <h5 v-if="expectedData" class="p-3 title">Warning: Some details have not been selected yet</h5>
+                <hr class="formHr" />
+                <div v-for="(item, key, index) in expectedData">
+                    <p v-if="item === ''">{{key}} is not selected yet!</p>
+                </div>
+            </div>
+
+        </form>
     </div>
 </template>
 
@@ -70,43 +86,71 @@
         },
 
         computed: {
+
+
+        },
+        methods: {
+            // valueMissing: function(){
+            //     for(let i = 0; i < 4; i++){
+            //         if(this.expectedData[i] === ''){
+            //
+            //         }
+            //     }
+            //     return null;
+            // }
         }
     }
 </script>
 
 
 <style scoped>
-    #sidebar{
-        width: 320px;
-        background-color: black;
-    }
-    #sidebarDetailBox{
-        background-color: white;
-        border: 1px solid gray;
-        padding: 0.5rem;
+
+    #confirmBookingForm{
+
     }
 
-    .card{
-        background-color: #E1C97C !important;
-        padding: 0.7rem !important;
-    }
-    .card-img-top{
+    .formHr{
         width: 100%;
-    }
-
-    hr{
+        background-color: #707070;
         height: 0.1px;
-        width: 100%;
+        margin: 0;
     }
 
-    .form-card{
+    .form-group{
+        margin: auto;
+        padding: 1rem;
+    }
+
+    label{
+        font-weight: bold;
+    }
+
+    .title{
+        font-weight: bold;
+    }
+
+    .formBox{
         border: 1px solid #707070;
     }
 
+    ul{
+        list-style-type: none;
+        margin: 2rem;
+        padding: 0;
+        overflow: hidden;
 
-    @media (max-width: 1400px) {
-        #sidebar{
-            visibility: hidden;
-        }
+        /*border: 0.5px solid gray;*/
+        /*border-radius: 1rem;*/
     }
+
+    li{
+        float: left;
+        display: block;
+        color: green;
+        text-align: center;
+        padding: 10px;
+    }
+
+
+
 </style>
