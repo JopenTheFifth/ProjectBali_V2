@@ -2246,6 +2246,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 // use the server bus in the component we want to send data from.
 //     first we need to import it.
 
@@ -39051,9 +39052,7 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "abso" }, [
-      _c("h1", [_vm._v("404- page not found")])
-    ])
+    return _c("div", {}, [_c("h1", [_vm._v("404- page not found")])])
   }
 ]
 render._withStripped = true

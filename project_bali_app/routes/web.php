@@ -15,7 +15,7 @@ use Illuminate\Support\Facades\Route;
 
 Auth::routes();
 
-Route::any('/{any}', function(){
+Route::any('/test/{any}', function(){
     return view('welcome');
 })->where('any', '.*');
 

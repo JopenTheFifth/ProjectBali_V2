@@ -32,6 +32,7 @@
                 <input  v-model="searchData.persons" class="form-control" id="persons" type="text">
             </div>
 
+
         </form>
     </div>
 </div>
@@ -137,7 +138,6 @@
                if(!this.searchData.checkOut){
                    this.errors.push('Check out date required');
                }
-
                e.preventDefault();
            }
         }
@@ -152,20 +152,16 @@
      height: 2.5rem;
  }
 
-
  label{
      font-weight: bold;
      font-size: 0.9rem;
      color:#353337;;
  }
-
     input, label,select{
         display: block;
     }
-
     input,select{
         font-size: 0.8rem;
-
     }
 
     .card{
